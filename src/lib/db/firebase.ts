@@ -360,9 +360,38 @@ export const subscribeToOrders = (callback: (orders: Order[]) => void): (() => v
       callback(orders);
     });
   } else {
+    // Poll the server for orders when Firebase is not configured
+    let active = true;
+    const poll = async () => {
+      try {
+        const res = await fetch("/api/orders");
+        if (res.ok && active) {
+          const serverOrders = await res.json();
+          const hasChanges =
+            serverOrders.length !== localOrdersList.length ||
+            JSON.stringify(serverOrders) !== JSON.stringify(localOrdersList);
+
+          if (hasChanges) {
+            localOrdersList = serverOrders;
+            localStorage.setItem("foodrush_orders", JSON.stringify(serverOrders));
+            orderListeners.forEach((listener) => listener([...localOrdersList]));
+            syncChannel?.postMessage({ type: "ORDERS_UPDATE", data: localOrdersList });
+          }
+        }
+      } catch (err) {
+        console.error("Failed to poll orders from server:", err);
+      }
+      if (active) {
+        setTimeout(poll, 1500); // Poll every 1.5 seconds
+      }
+    };
+
+    poll();
+
     orderListeners.add(callback);
     callback([...localOrdersList]);
     return () => {
+      active = false;
       orderListeners.delete(callback);
     };
   }
@@ -407,6 +436,15 @@ export const addOrder = async (
     await addDoc(collection(db, "orders"), newOrder);
     return id;
   } else {
+    try {
+      await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newOrder),
+      });
+    } catch (err) {
+      console.error("Failed to send order to server:", err);
+    }
     localOrdersList = [newOrder, ...localOrdersList];
     notifyOrderListeners();
     return id;
@@ -429,6 +467,15 @@ export const updateOrderStatus = async (
     };
     await updateDoc(docRef, updates);
   } else {
+    try {
+      await fetch(`/api/orders/${orderId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status, ...extraFields }),
+      });
+    } catch (err) {
+      console.error("Failed to update order status on server:", err);
+    }
     localOrdersList = localOrdersList.map((o) => {
       if (o.id === orderId) {
         const updated: Order = {

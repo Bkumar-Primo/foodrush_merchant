@@ -2,7 +2,9 @@ interface FoodRushSplashSceneProps {
   exiting?: boolean;
 }
 
-export function FoodRushSplashScene({ exiting = false }: FoodRushSplashSceneProps): React.JSX.Element {
+export function FoodRushSplashScene({
+  exiting = false,
+}: FoodRushSplashSceneProps): React.JSX.Element {
   return (
     <div
       className={`relative mx-auto w-[min(88vw,22rem)] ${exiting ? "" : "splash-scene-enter"}`}
@@ -13,6 +15,7 @@ export function FoodRushSplashScene({ exiting = false }: FoodRushSplashSceneProp
         viewBox="0 0 220 220"
         fill="none"
       >
+        <title>Decorative Splash Arc</title>
         <path
           className="splash-arc-path"
           d="M 42 168 C 48 92, 92 28, 168 54"

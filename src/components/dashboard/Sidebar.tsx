@@ -11,7 +11,7 @@ import {
   Star,
 } from "lucide-react";
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { tokens } from "@/lib/utils/tokens";
 import type { DashboardTab, Order } from "@/types";
 
@@ -29,6 +29,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
   simulateIncomingOrder,
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [serverIp, setServerIp] = useState<string | null>(null);
+  const [serverPort, setServerPort] = useState<number>(3000);
+
+  useEffect(() => {
+    fetch("/api/server-info")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.localIp) {
+          setServerIp(data.localIp);
+          setServerPort(data.port || 3000);
+        }
+      })
+      .catch((err) => console.error("Error loading server info:", err));
+  }, []);
+
   const activeOrdersCount = orders.filter(
     (o) => o.status !== "delivered" && o.status !== "rejected",
   ).length;
@@ -121,8 +136,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
               Simulator Sandbox
             </h4>
             <p className="text-[9px] text-indigo-900/60 dark:text-indigo-400/70 mt-0.5 leading-snug">
-              Inject mock orders to test Firestore sync.
+              Inject mock orders to test database sync.
             </p>
+            {serverIp && (
+              <div className="mt-2.5 rounded-lg bg-indigo-100/50 dark:bg-indigo-950/20 p-2 border border-indigo-200/30 dark:border-indigo-900/30 text-[9px] text-indigo-950 dark:text-indigo-300 font-mono break-all leading-normal">
+                <span className="font-sans font-bold text-[8px] text-indigo-700 dark:text-indigo-400 block uppercase mb-0.5 tracking-wider">
+                  Mobile Simulation URL:
+                </span>
+                http://{serverIp}:{serverPort}/simulate
+              </div>
+            )}
             <button
               onClick={() => simulateIncomingOrder()}
               className="mt-2.5 flex w-full items-center justify-center gap-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 py-1.5 text-[10px] font-bold text-white transition-colors shadow-sm cursor-pointer"
