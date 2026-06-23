@@ -1,5 +1,7 @@
+"use client";
+
 import { AlertTriangle, CheckCircle, Phone } from "lucide-react";
-import React from "react";
+import type React from "react";
 import { tokens } from "@/lib/utils/tokens";
 import { useComplaints } from "../hooks/useComplaints";
 
@@ -77,7 +79,7 @@ export const CustomerComplaints: React.FC = () => {
                 (Item: {ticket.item})
               </p>
               <p className={`mt-1 ${tokens.fontSizes.body} ${tokens.colors.textSecondary} italic`}>
-                "{ticket.text}"
+                &ldquo;{ticket.text}&rdquo;
               </p>
             </div>
 

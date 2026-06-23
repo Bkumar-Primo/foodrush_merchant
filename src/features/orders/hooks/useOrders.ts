@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { subscribeToOrders } from "@/lib/db/firebase";
-import { Order } from "@/types";
+import { subscribeToOrders } from "@/lib/db";
+import type { Order } from "@/types";
 
 export const useOrders = (onNewOrder?: () => void) => {
   const [orders, setOrders] = useState<Order[]>([]);

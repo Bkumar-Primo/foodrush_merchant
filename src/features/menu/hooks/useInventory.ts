@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { subscribeToInventory } from "@/lib/db/firebase";
-import { MenuItem } from "@/types";
+import { subscribeToInventory } from "@/lib/db";
+import type { MenuItem } from "@/types";
 
 export const useInventory = () => {
   const [inventory, setInventory] = useState<MenuItem[]>([]);

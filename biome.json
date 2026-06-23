@@ -1,5 +1,18 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.5.0/schema.json",
+  "files": {
+    "includes": [
+      "**",
+      "!!**/*.css",
+      "!!**/.next",
+      "!!**/node_modules",
+      "!!**/dist",
+      "!!**/build",
+      "!!**/coverage",
+      "!!**/.turbo",
+      "!!**/out"
+    ]
+  },
   "assist": {
     "actions": {
       "source": {
@@ -26,6 +39,9 @@
         "noExplicitAny": "off",
         "noArrayIndexKey": "off",
         "useIterableCallbackReturn": "off"
+      },
+      "performance": {
+        "noImgElement": "off"
       }
     }
   },
@@ -34,5 +50,16 @@
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 100
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.css"],
+      "linter": {
+        "enabled": false
+      },
+      "formatter": {
+        "enabled": false
+      }
+    }
+  ]
 }

@@ -1,5 +1,8 @@
+"use client";
+
 import { CornerDownRight, MessageSquare, Star } from "lucide-react";
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import { tokens } from "@/lib/utils/tokens";
 import { useReviews } from "../hooks/useReviews";
 
@@ -98,7 +101,7 @@ export const CustomerReviews: React.FC = () => {
             </div>
 
             <p className="mt-2 text-zinc-700 dark:text-zinc-300 text-xs leading-relaxed">
-              "{review.comment}"
+              &ldquo;{review.comment}&rdquo;
             </p>
 
             {/* Merchant Reply */}
@@ -110,7 +113,7 @@ export const CustomerReviews: React.FC = () => {
                     Your Response
                   </span>
                   <p className="text-zinc-650 dark:text-zinc-400 text-[11px] mt-0.5 italic">
-                    "{review.reply}"
+                    &ldquo;{review.reply}&rdquo;
                   </p>
                 </div>
               </div>
@@ -121,7 +124,10 @@ export const CustomerReviews: React.FC = () => {
                   placeholder="Respond to this review..."
                   value={replyText[review.id] || ""}
                   onChange={(e) =>
-                    setReplyText((prev) => ({ ...prev, [review.id]: e.target.value }))
+                    setReplyText((prev) => ({
+                      ...prev,
+                      [review.id]: e.target.value,
+                    }))
                   }
                   className={`flex-1 rounded-lg border ${tokens.colors.border} bg-white dark:bg-zinc-900 px-3 py-1.5 text-xs text-zinc-950 dark:text-white placeholder-zinc-400 focus:outline-none focus:border-zinc-400`}
                 />

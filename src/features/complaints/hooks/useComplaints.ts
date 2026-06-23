@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Complaint } from "@/types";
+import type { Complaint } from "@/types";
 
 export const useComplaints = () => {
   const [complaints, setComplaints] = useState<Complaint[]>([

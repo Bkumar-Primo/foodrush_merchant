@@ -1,17 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
 import { XIcon } from "lucide-react";
+import type React from "react";
+import { useState } from "react";
 
 interface NeedMoreTimeModalProps {
   onClose: () => void;
   onSubmit: (extraTime: number) => Promise<void>;
 }
 
-export const NeedMoreTimeModal: React.FC<NeedMoreTimeModalProps> = ({
-  onClose,
-  onSubmit,
-}) => {
+export const NeedMoreTimeModal: React.FC<NeedMoreTimeModalProps> = ({ onClose, onSubmit }) => {
   const [extraTime, setExtraTime] = useState(10); // Default to 10 mins as requested
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -28,12 +26,9 @@ export const NeedMoreTimeModal: React.FC<NeedMoreTimeModalProps> = ({
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs select-none">
       <div className="w-full max-w-[400px] bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl border border-zinc-200/80 dark:border-zinc-800/80 overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-150">
-        
         {/* Header */}
         <div className="px-5 py-3.5 flex items-center justify-between border-b border-zinc-150 dark:border-zinc-800">
-          <span className="font-black text-sm text-zinc-900 dark:text-white">
-            Need more time
-          </span>
+          <span className="font-black text-sm text-zinc-900 dark:text-white">Need more time</span>
           <button
             onClick={onClose}
             className="text-zinc-400 hover:text-zinc-650 dark:hover:text-zinc-200 cursor-pointer"
@@ -86,7 +81,6 @@ export const NeedMoreTimeModal: React.FC<NeedMoreTimeModalProps> = ({
             )}
           </button>
         </div>
-
       </div>
     </div>
   );
