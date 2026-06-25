@@ -1,181 +1,88 @@
-import { getApps, initializeApp } from "firebase/app";
 import {
-  addDoc,
   collection,
+  deleteDoc,
   doc,
-  getFirestore,
   onSnapshot,
   orderBy,
   query,
+  setDoc,
   updateDoc,
 } from "firebase/firestore";
+import type { MenuItem, Order } from "@/types";
+import { FIRESTORE_COLLECTIONS } from "./collections";
+import { getFirestoreDb } from "./firebaseClient";
+import { stripUndefinedForFirestore } from "./firestoreData";
+import { generateInventorySeedData } from "./inventorySeedData";
+import { replaceFirestoreInventory, seedFirestoreInventory } from "./seedFirestore";
+import { isMenuItem, isOrder } from "./validators";
 
-import { MenuItem, Order } from "@/types";
+const SEED_INVENTORY = generateInventorySeedData();
 
-// Local mock database state (backed by LocalStorage and synchronized via BroadcastChannel)
-const MOCK_INVENTORY: MenuItem[] = [
-  {
-    id: "item_1",
-    name: "Butter Chicken Meal",
-    price: 320,
-    category: "Mains",
-    inStock: true,
-    image: "🍗",
-  },
-  {
-    id: "item_2",
-    name: "Paneer Tikka Roll",
-    price: 180,
-    category: "Rolls",
-    inStock: true,
-    image: "🌯",
-  },
-  {
-    id: "item_3",
-    name: "Masala Dosa",
-    price: 120,
-    category: "South Indian",
-    inStock: true,
-    image: "🥞",
-  },
-  {
-    id: "item_4",
-    name: "Special Veg Biryani",
-    price: 260,
-    category: "Biryanis",
-    inStock: true,
-    image: "🍚",
-  },
-  {
-    id: "item_5",
-    name: "Gulab Jamun (2 Pcs)",
-    price: 80,
-    category: "Desserts",
-    inStock: true,
-    image: "🍨",
-  },
-  { id: "item_6", name: "Mango Lassi", price: 90, category: "Drinks", inStock: true, image: "🥛" },
-];
-
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-};
-
-const isRealFirebaseConfigured = !!process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
-
-let db: any = null;
-
-if (isRealFirebaseConfigured) {
-  try {
-    const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-    db = getFirestore(app);
-  } catch (error) {
-    console.error("Firebase initialization failed, falling back to local database:", error);
+function requireDb() {
+  const db = getFirestoreDb();
+  if (!db) {
+    throw new Error(
+      "Firebase is not configured. Set NEXT_PUBLIC_FIREBASE_* in .env.local and restart the dev server.",
+    );
   }
+  return db;
 }
 
-// Multi-tab sync channel
-let syncChannel: BroadcastChannel | null = null;
-if (typeof window !== "undefined") {
-  syncChannel = new BroadcastChannel("foodrush_sync_channel");
-}
-
-// Memory database fallback
-let localOrdersList: Order[] = [];
-let localInventoryList: MenuItem[] = [];
-
-if (typeof window !== "undefined") {
-  // Load initial orders
-  const savedOrders = localStorage.getItem("foodrush_orders");
-  localOrdersList = savedOrders ? JSON.parse(savedOrders) : [];
-
-  // Load initial inventory
-  const savedInventory = localStorage.getItem("foodrush_inventory");
-  localInventoryList = savedInventory ? JSON.parse(savedInventory) : MOCK_INVENTORY;
-}
-
-// Order callbacks
-const orderListeners = new Set<(orders: Order[]) => void>();
-const inventoryListeners = new Set<(items: MenuItem[]) => void>();
-
-if (typeof window !== "undefined" && syncChannel) {
-  syncChannel.onmessage = (event) => {
-    const { type, data } = event.data;
-    if (type === "ORDERS_UPDATE") {
-      localOrdersList = data;
-      localStorage.setItem("foodrush_orders", JSON.stringify(data));
-      orderListeners.forEach((listener) => listener([...localOrdersList]));
-    } else if (type === "INVENTORY_UPDATE") {
-      localInventoryList = data;
-      localStorage.setItem("foodrush_inventory", JSON.stringify(data));
-      inventoryListeners.forEach((listener) => listener([...localInventoryList]));
-    }
-  };
-}
-
-const notifyOrderListeners = () => {
-  if (typeof window !== "undefined") {
-    localStorage.setItem("foodrush_orders", JSON.stringify(localOrdersList));
-    syncChannel?.postMessage({ type: "ORDERS_UPDATE", data: localOrdersList });
-  }
-  orderListeners.forEach((listener) => listener([...localOrdersList]));
-};
-
-const notifyInventoryListeners = () => {
-  if (typeof window !== "undefined") {
-    localStorage.setItem("foodrush_inventory", JSON.stringify(localInventoryList));
-    syncChannel?.postMessage({ type: "INVENTORY_UPDATE", data: localInventoryList });
-  }
-  inventoryListeners.forEach((listener) => listener([...localInventoryList]));
-};
-
-// Firestore subscriptions
 export const subscribeToOrders = (callback: (orders: Order[]) => void): (() => void) => {
-  if (db) {
-    const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
-    return onSnapshot(q, (snapshot) => {
-      const orders = snapshot.docs.map((doc) => {
-        const data = doc.data();
-        return { ...data, id: data.id || doc.id } as Order;
-      });
+  const db = requireDb();
+  const q = query(collection(db, FIRESTORE_COLLECTIONS.orders), orderBy("createdAt", "desc"));
+
+  return onSnapshot(
+    q,
+    (snapshot) => {
+      const orders = snapshot.docs
+        .map((docSnap) => {
+          const data = docSnap.data();
+          const candidate = { ...data, id: data.id || docSnap.id };
+          return isOrder(candidate) ? candidate : null;
+        })
+        .filter((order): order is Order => order !== null);
       callback(orders);
-    });
-  } else {
-    orderListeners.add(callback);
-    callback([...localOrdersList]);
-    return () => {
-      orderListeners.delete(callback);
-    };
-  }
+    },
+    (error) => {
+      console.error(
+        `[Firestore] orders listener failed (project: ${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}, database: ${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_ID || "(default)"}).`,
+        error,
+      );
+    },
+  );
 };
 
 export const subscribeToInventory = (callback: (items: MenuItem[]) => void): (() => void) => {
-  if (db) {
-    return onSnapshot(collection(db, "inventory"), (snapshot) => {
-      const items = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }) as MenuItem);
+  const db = requireDb();
+
+  return onSnapshot(
+    collection(db, FIRESTORE_COLLECTIONS.inventory),
+    (snapshot) => {
+      const items = snapshot.docs
+        .map((docSnap) => {
+          const candidate = { id: docSnap.id, ...docSnap.data() };
+          return isMenuItem(candidate) ? candidate : null;
+        })
+        .filter((item): item is MenuItem => item !== null);
       callback(items);
-    });
-  } else {
-    inventoryListeners.add(callback);
-    callback([...localInventoryList]);
-    return () => {
-      inventoryListeners.delete(callback);
-    };
-  }
+    },
+    (error) => {
+      console.error(
+        `[Firestore] inventory listener failed (project: ${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}, database: ${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_ID || "(default)"}).`,
+        error,
+      );
+    },
+  );
 };
 
-// Database Mutations
 export const addOrder = async (
   order: Omit<Order, "id" | "createdAt" | "updatedAt">,
   pastSeconds?: number,
 ): Promise<string> => {
+  const db = requireDb();
   const timestamp = Date.now() - (pastSeconds || 0) * 1000;
-  const id = Math.floor(1000 + Math.random() * 9000).toString();
+  const id = (6300000000 + Math.floor(Math.random() * 100000000)).toString();
 
   const newOrder: Order = {
     ...order,
@@ -184,62 +91,114 @@ export const addOrder = async (
     updatedAt: timestamp,
   };
 
-  if (db) {
-    await addDoc(collection(db, "orders"), newOrder);
-    return id;
-  } else {
-    localOrdersList = [newOrder, ...localOrdersList];
-    notifyOrderListeners();
-    return id;
-  }
+  await setDoc(doc(db, FIRESTORE_COLLECTIONS.orders, id), stripUndefinedForFirestore(newOrder));
+  return id;
 };
 
 export const updateOrderStatus = async (
   orderId: string,
   status: Order["status"],
-  extraFields?: Record<string, any>,
+  extraFields?: Partial<
+    Pick<
+      Order,
+      | "prepTime"
+      | "prepStartedAt"
+      | "riderName"
+      | "riderPhone"
+      | "riderOtp"
+      | "riderAvatar"
+      | "riderCoords"
+    >
+  >,
 ): Promise<void> => {
+  const db = requireDb();
   const timestamp = Date.now();
+  const docRef = doc(db, FIRESTORE_COLLECTIONS.orders, orderId);
+  const updates: Partial<
+    Pick<
+      Order,
+      | "status"
+      | "updatedAt"
+      | "prepTime"
+      | "prepStartedAt"
+      | "riderName"
+      | "riderPhone"
+      | "riderOtp"
+      | "riderAvatar"
+      | "riderCoords"
+    >
+  > = {
+    status,
+    updatedAt: timestamp,
+    ...extraFields,
+  };
 
-  if (db) {
-    const docRef = doc(db, "orders", orderId);
-    const updates: any = { status, updatedAt: timestamp, ...extraFields };
-    await updateDoc(docRef, updates);
-  } else {
-    localOrdersList = localOrdersList.map((o) => {
-      if (o.id === orderId) {
-        const updated: Order = { ...o, status, updatedAt: timestamp, ...extraFields };
-        return updated;
-      }
-      return o;
-    });
-    notifyOrderListeners();
-  }
+  await updateDoc(docRef, stripUndefinedForFirestore(updates));
 };
 
-export const updateInventoryStatus = async (itemId: string, inStock: boolean): Promise<void> => {
-  if (db) {
-    const docRef = doc(db, "inventory", itemId);
-    await updateDoc(docRef, { inStock });
-  } else {
-    localInventoryList = localInventoryList.map((item) => {
-      if (item.id === itemId) {
-        return { ...item, inStock };
-      }
-      return item;
-    });
-    notifyInventoryListeners();
-  }
+export const updateOrderRiderCoords = async (
+  orderId: string,
+  riderCoords: [number, number],
+): Promise<void> => {
+  const db = requireDb();
+  await updateDoc(
+    doc(db, FIRESTORE_COLLECTIONS.orders, orderId),
+    stripUndefinedForFirestore({ riderCoords, updatedAt: Date.now() }),
+  );
 };
 
-// Helper to clear localStorage database for debug
-export const clearLocalDatabase = () => {
-  if (typeof window !== "undefined") {
-    localStorage.removeItem("foodrush_orders");
-    localStorage.removeItem("foodrush_inventory");
-    localOrdersList = [];
-    localInventoryList = [...MOCK_INVENTORY];
-    notifyOrderListeners();
-    notifyInventoryListeners();
+export const updateInventoryStatus = async (
+  itemId: string,
+  inStock: boolean,
+  backInStockTime?: number,
+): Promise<void> => {
+  const db = requireDb();
+  const docRef = doc(db, FIRESTORE_COLLECTIONS.inventory, itemId);
+
+  await updateDoc(docRef, {
+    inStock,
+    backInStockTime: inStock ? null : backInStockTime || null,
+  });
+};
+
+export const saveInventoryItem = async (item: MenuItem): Promise<void> => {
+  const db = requireDb();
+  const docRef = doc(db, FIRESTORE_COLLECTIONS.inventory, item.id);
+  await setDoc(docRef, stripUndefinedForFirestore(item), { merge: true });
+};
+
+export const deleteInventoryItem = async (itemId: string): Promise<void> => {
+  const db = requireDb();
+  await deleteDoc(doc(db, FIRESTORE_COLLECTIONS.inventory, itemId));
+};
+
+export const addCategoryMock = async (categoryName: string): Promise<void> => {
+  void categoryName;
+  return Promise.resolve();
+};
+
+export const addSubcategoryMock = async (
+  categoryName: string,
+  subcategoryName: string,
+): Promise<void> => {
+  void categoryName;
+  void subcategoryName;
+  return Promise.resolve();
+};
+
+/** Seeds Firestore inventory when the collection is empty (first connect). */
+export const initializeFirestoreData = async (): Promise<void> => {
+  const db = getFirestoreDb();
+  if (!db) {
+    return;
   }
+  await seedFirestoreInventory([...SEED_INVENTORY]);
+};
+
+/** Deletes all inventory and writes the full seed catalog. */
+export const reseedFirestoreInventory = async (): Promise<{
+  deleted: number;
+  written: number;
+}> => {
+  return replaceFirestoreInventory([...SEED_INVENTORY]);
 };

@@ -1,5 +1,5 @@
 import { useCallback, useSyncExternalStore } from "react";
-import { useDashboardStore, RINGTONE_MAP } from "@/stores/useDashboardStore";
+import { RINGTONE_MAP, type RingtoneOption, useDashboardStore } from "@/stores/useDashboardStore";
 
 let activeAudio: HTMLAudioElement | null = null;
 let isPlayingGlobal = false;
@@ -77,11 +77,7 @@ function playAudio(file: string, loop: boolean, onEnded?: () => void) {
 }
 
 export const useAudioChime = () => {
-  const isPlaying = useSyncExternalStore(
-    subscribe,
-    getIsPlayingSnapshot,
-    getIsPlayingSnapshot,
-  );
+  const isPlaying = useSyncExternalStore(subscribe, getIsPlayingSnapshot, getIsPlayingSnapshot);
 
   const playOrderChime = useCallback(() => {
     const { soundEnabled, selectedRingtone } = useDashboardStore.getState();
@@ -107,14 +103,14 @@ export const useAudioChime = () => {
   }, []);
 
   const previewRingtone = useCallback(
-    (ringtoneKey: string) => {
+    (ringtoneKey: RingtoneOption) => {
       if (isPlaying) {
         stopChime();
         return;
       }
 
       const { volume } = useDashboardStore.getState();
-      const ringtoneInfo = RINGTONE_MAP[ringtoneKey as keyof typeof RINGTONE_MAP];
+      const ringtoneInfo = RINGTONE_MAP[ringtoneKey];
       if (!ringtoneInfo) return;
 
       try {
@@ -154,5 +150,12 @@ export const useAudioChime = () => {
     [isPlaying],
   );
 
-  return { playOrderChime, playLooping, stopChime, previewRingtone, updateVolume, isPlaying };
+  return {
+    playOrderChime,
+    playLooping,
+    stopChime,
+    previewRingtone,
+    updateVolume,
+    isPlaying,
+  };
 };

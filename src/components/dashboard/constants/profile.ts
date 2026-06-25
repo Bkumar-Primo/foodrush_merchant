@@ -1,0 +1,17 @@
+export const PROFILE_COPY = {
+  title: "Profile",
+  popoverEditProfile: "Edit profile",
+  popoverSettings: "Settings",
+  popoverSignOut: "Sign out",
+  editTitle: "Merchant details",
+  displayNameLabel: "Display name",
+  displayNamePlaceholder: "Your name",
+  emailLabel: "Email",
+  saveProfile: "Save changes",
+  savingProfile: "Saving...",
+  profileSaved: "Profile updated.",
+  accountTitle: "Account",
+  signOut: "Sign out",
+  signingOut: "Signing out...",
+  signOutHint: "You will return to the login screen.",
+} as const;
