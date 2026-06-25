@@ -36,6 +36,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   setActiveTab,
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+
   const activeOrdersCount = orders.filter(
     (o) => o.status !== "delivered" && o.status !== "rejected",
   ).length;
