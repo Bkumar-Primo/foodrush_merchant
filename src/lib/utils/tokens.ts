@@ -1,4 +1,5 @@
 // Tailwind v4 Theme Tokens — only values reused across the app
+// Colors match BRAND_COLORS / customer app src/theme/colors.ts
 
 export const tokens = {
   fontSizes: {
@@ -18,32 +19,32 @@ export const tokens = {
   },
 
   colors: {
-    // Brand (FoodRush blue)
-    brand: "text-[#2563EB]",
-    brandBg: "bg-[#2563EB]",
-    brandBgHover: "hover:bg-[#1D4ED8]",
-    brandBorder: "border-[#2563EB]",
-    brandRing: "focus:ring-[#2563EB]",
-    brandBgLight: "bg-blue-50/40 dark:bg-indigo-950/20",
+    // Brand (FoodRush coral)
+    brand: "text-[#D4543C]",
+    brandBg: "bg-[#D4543C]",
+    brandBgHover: "hover:bg-[#B8433A]",
+    brandBorder: "border-[#D4543C]",
+    brandRing: "focus:ring-[#D4543C]",
+    brandBgLight: "bg-[#F4A99A]/25 dark:bg-[#D4543C]/15",
 
-    // Order actions (Zomato-style blue)
-    orderAction: "bg-[#185adb]",
-    orderActionHover: "hover:bg-[#1146ad]",
-    orderActionText: "text-[#185adb]",
-    orderActionBorder: "border-[#185adb]",
-    orderActionOutlineHover: "hover:bg-blue-50/50",
+    // Order actions (brand primary)
+    orderAction: "bg-[#D4543C]",
+    orderActionHover: "hover:bg-[#B8433A]",
+    orderActionText: "text-[#D4543C]",
+    orderActionBorder: "border-[#D4543C]",
+    orderActionOutlineHover: "hover:bg-[#F4A99A]/20",
 
-    // Primary (Indigo)
-    primaryBg: "bg-indigo-600",
-    primaryBgHover: "hover:bg-indigo-500",
-    primaryText: "text-indigo-600 dark:text-indigo-400",
-    primaryBorder: "border-indigo-600 dark:border-indigo-400",
-    primaryShadow: "shadow-indigo-600/15",
+    // Primary accents
+    primaryBg: "bg-[#D4543C]",
+    primaryBgHover: "hover:bg-[#B8433A]",
+    primaryText: "text-[#D4543C] dark:text-[#F4A99A]",
+    primaryBorder: "border-[#D4543C] dark:border-[#F4A99A]",
+    primaryShadow: "shadow-[#D4543C]/15",
 
-    successBg: "bg-emerald-500",
-    successBgLight: "bg-emerald-50/50 dark:bg-emerald-950/20",
-    successText: "text-emerald-500 dark:text-emerald-400",
-    successBorder: "border-emerald-200 dark:border-emerald-950",
+    successBg: "bg-[#2D6A4F]",
+    successBgLight: "bg-[#E8F5EE]/80 dark:bg-[#2D6A4F]/20",
+    successText: "text-[#2D6A4F] dark:text-[#E8F5EE]",
+    successBorder: "border-[#E8F5EE] dark:border-[#2D6A4F]/40",
 
     warningBg: "bg-amber-500",
     warningBgLight: "bg-amber-50/50 dark:bg-amber-950/20",
@@ -61,7 +62,7 @@ export const tokens = {
     infoText: "text-sky-500 dark:text-sky-400",
     infoBorder: "border-sky-200 dark:border-sky-950",
 
-    pageBg: "bg-zinc-50 dark:bg-zinc-950",
+    pageBg: "bg-[#FAF8F5] dark:bg-[#141416]",
     cardBg: "bg-white dark:bg-zinc-900",
     cardBgMuted: "bg-zinc-50/50 dark:bg-zinc-900/40",
     sidebarBg: "bg-white/70 dark:bg-zinc-900/40",
@@ -76,6 +77,6 @@ export const tokens = {
     textMuted: "text-zinc-500 dark:text-zinc-400",
 
     input:
-      "w-full rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-955 px-3 py-2 text-xs font-semibold text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-1 focus:ring-[#2563EB]",
+      "w-full rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-955 px-3 py-2 text-xs font-medium text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-1 focus:ring-[#D4543C]",
   },
 };

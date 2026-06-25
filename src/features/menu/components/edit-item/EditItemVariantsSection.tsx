@@ -19,10 +19,10 @@ export function EditItemVariantsSection({ form }: EditItemVariantsSectionProps):
         onClick={() => setIsVariantsExpanded(!isVariantsExpanded)}
         className="w-full flex items-center justify-between py-2 text-left focus:outline-none cursor-pointer"
       >
-        <h4 className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider">
+        <h4 className="text-xs font-medium text-zinc-900 dark:text-zinc-100 uppercase tracking-wider">
           Variants
         </h4>
-        <span className="text-sm font-semibold text-zinc-400 hover:text-zinc-650">
+        <span className="text-sm font-medium text-zinc-400 hover:text-zinc-650">
           {isVariantsExpanded ? "—" : "+"}
         </span>
       </button>

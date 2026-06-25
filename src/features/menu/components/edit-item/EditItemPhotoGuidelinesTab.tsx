@@ -8,7 +8,7 @@ export function EditItemPhotoGuidelinesTab(): React.JSX.Element {
   return (
     <div className="space-y-4 py-2 text-left max-h-[300px] overflow-y-auto">
       <div className="space-y-2">
-        <span className="text-xs font-semibold text-emerald-650 flex items-center gap-1.5">
+        <span className="text-xs font-medium text-emerald-650 flex items-center gap-1.5">
           <Check className="h-4.5 w-4.5" /> High-quality photo guidelines
         </span>
         <ul className="list-disc pl-5 text-[11px] text-zinc-500 space-y-1.5 font-medium">

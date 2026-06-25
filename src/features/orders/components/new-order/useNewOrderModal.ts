@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { stopChime, useAudioChime } from "@/hooks/useAudioChime";
+import { TIMING } from "@/lib/constants";
 import { useDashboardStore } from "@/stores/useDashboardStore";
 import type { Order } from "@/types";
 import type { NewOrderModalProps } from "./types";
@@ -21,11 +22,11 @@ export function useNewOrderModal({
 }: UseNewOrderModalParams) {
   const { soundEnabled } = useDashboardStore();
   const { playLooping } = useAudioChime();
-  const [prepTime, setPrepTime] = useState(40);
+  const [prepTime, setPrepTime] = useState<number>(TIMING.defaultPrepMinutes);
 
   const getRemainingTime = useCallback((): number => {
     const elapsedSecs = Math.floor((Date.now() - order.createdAt) / 1000);
-    return Math.max(0, 300 - elapsedSecs);
+    return Math.max(0, TIMING.orderAcceptSeconds - elapsedSecs);
   }, [order.createdAt]);
 
   const [timeLeft, setTimeLeft] = useState(getRemainingTime);
@@ -120,8 +121,14 @@ export function useNewOrderModal({
     }
   };
 
-  const incrementTime = (): void => setPrepTime((prev) => Math.min(prev + 5, 120));
-  const decrementTime = (): void => setPrepTime((prev) => Math.max(prev - 5, 5));
+  const incrementTime = (): void =>
+    setPrepTime((prev) =>
+      Math.min(prev + TIMING.prepTimePickerStepMinutes, TIMING.prepTimePickerMaxMinutes),
+    );
+  const decrementTime = (): void =>
+    setPrepTime((prev) =>
+      Math.max(prev - TIMING.prepTimePickerStepMinutes, TIMING.prepTimePickerMinMinutes),
+    );
 
   const handleAcceptClick = async (): Promise<void> => {
     setIsAccepting(true);
@@ -131,7 +138,7 @@ export function useNewOrderModal({
     setIsAccepted(true);
     dismissTimerRef.current = setTimeout(() => {
       onDismiss();
-    }, 1500);
+    }, TIMING.postAcceptDismissMs);
   };
 
   const handleRejectClick = (): void => {

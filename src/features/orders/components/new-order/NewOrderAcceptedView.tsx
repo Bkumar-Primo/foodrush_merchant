@@ -6,7 +6,7 @@ export function NewOrderAcceptedView(): React.JSX.Element {
       <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#249B5E]">
         <Check className="h-7 w-7 text-white stroke-[3]" />
       </div>
-      <p className="mt-4 text-sm font-bold text-zinc-900 dark:text-white">Order accepted</p>
+      <p className="mt-4 text-sm font-medium text-zinc-900 dark:text-white">Order accepted</p>
     </div>
   );
 }

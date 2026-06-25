@@ -17,7 +17,7 @@ export function OrderHistoryTimeline({ order }: OrderHistoryTimelineProps): Reac
   return (
     <div className="border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 bg-white dark:bg-zinc-900">
       <div className="flex items-center justify-between mb-5">
-        <h4 className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Order timeline</h4>
+        <h4 className="text-xs font-medium text-zinc-700 dark:text-zinc-300">Order timeline</h4>
         {duration !== null && (
           <span className="text-[11px] font-medium text-zinc-500">
             Delivered in {duration} minutes
@@ -59,7 +59,7 @@ export function OrderHistoryTimeline({ order }: OrderHistoryTimelineProps): Reac
                 )}
               </div>
 
-              <p className="text-[9px] font-semibold text-zinc-600 dark:text-zinc-400 text-center mt-2 leading-tight px-0.5">
+              <p className="text-[9px] font-medium text-zinc-600 dark:text-zinc-400 text-center mt-2 leading-tight px-0.5">
                 {step.label}
               </p>
               {ts !== null && (
@@ -70,7 +70,7 @@ export function OrderHistoryTimeline({ order }: OrderHistoryTimelineProps): Reac
               {step.showView && ts !== null && (
                 <button
                   type="button"
-                  className="text-[9px] font-semibold text-blue-600 mt-0.5 hover:underline cursor-pointer"
+                  className="text-[9px] font-medium text-primary mt-0.5 hover:underline cursor-pointer"
                 >
                   View
                 </button>

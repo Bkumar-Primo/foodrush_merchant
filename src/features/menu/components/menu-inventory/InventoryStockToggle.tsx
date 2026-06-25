@@ -9,9 +9,7 @@ export function InventoryStockToggle({
 }: InventoryStockToggleProps): React.JSX.Element {
   return (
     <div className="flex items-center gap-2">
-      <span
-        className={`text-[10px] font-semibold ${inStock ? "text-emerald-600" : "text-zinc-450"}`}
-      >
+      <span className={`text-[10px] font-medium ${inStock ? "text-emerald-600" : "text-zinc-450"}`}>
         {inStock ? "In stock" : "Out of stock"}
       </span>
       <button

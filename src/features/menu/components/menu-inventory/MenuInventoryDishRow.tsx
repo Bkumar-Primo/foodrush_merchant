@@ -25,7 +25,7 @@ export function MenuInventoryDishRow({
         >
           <FoodTypeIcon foodType={item.foodType} />
         </span>
-        <span className="text-xs font-semibold text-zinc-755 dark:text-zinc-200">{item.name}</span>
+        <span className="text-xs font-medium text-zinc-755 dark:text-zinc-200">{item.name}</span>
       </div>
       <InventoryStockToggle inStock={item.inStock} onToggle={onToggle} />
     </div>

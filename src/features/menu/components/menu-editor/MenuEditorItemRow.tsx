@@ -22,12 +22,12 @@ export function MenuEditorItemRow({ item, onEdit }: MenuEditorItemRowProps): Rea
         <div className="text-left min-w-0">
           <div className="flex items-center gap-1.5 flex-wrap">
             <FoodTypeBadge foodType={item.foodType} />
-            <span className="text-xs font-semibold text-zinc-900 dark:text-white truncate">
+            <span className="text-xs font-medium text-zinc-900 dark:text-white truncate">
               {item.name}
             </span>
             {item.price > 150 && <VerifiedBadge className={tokens.colors.brand} />}
           </div>
-          <div className="flex items-center gap-1 text-[10px] font-semibold text-zinc-450 dark:text-zinc-500 mt-1">
+          <div className="flex items-center gap-1 text-[10px] font-medium text-zinc-450 dark:text-zinc-500 mt-1">
             <span>₹{item.price}</span>
             {item.customisable && (
               <>
@@ -42,7 +42,7 @@ export function MenuEditorItemRow({ item, onEdit }: MenuEditorItemRowProps): Rea
       <button
         type="button"
         onClick={() => onEdit(item)}
-        className="text-zinc-400 group-hover:text-[#2563EB] p-1 rounded-lg border border-transparent group-hover:border-zinc-200 dark:group-hover:border-zinc-800 transition-colors shrink-0"
+        className="text-zinc-400 group-hover:text-primary p-1 rounded-lg border border-transparent group-hover:border-zinc-200 dark:group-hover:border-zinc-800 transition-colors shrink-0"
       >
         <Edit2 className="h-3.5 w-3.5" />
       </button>

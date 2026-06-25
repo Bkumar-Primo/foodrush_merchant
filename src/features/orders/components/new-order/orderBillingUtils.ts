@@ -2,12 +2,11 @@ import type { Order } from "@/types";
 import type { OrderBilling } from "./types";
 
 export function getOrderBilling(order: Order): OrderBilling {
-  const isSimulatedLitti = order.items.some((item) => item.name.includes("Litti"));
   const itemTotal = order.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const taxes = 0.0;
-  const discount = isSimulatedLitti ? 71.6 : Math.round(itemTotal * 0.1 * 100) / 100;
-  const finalBill = isSimulatedLitti ? 644.4 : itemTotal - discount;
-  return { isSimulatedLitti, itemTotal, taxes, discount, finalBill };
+  const discount = Math.round(itemTotal * 0.1 * 100) / 100;
+  const finalBill = itemTotal - discount;
+  return { itemTotal, taxes, discount, finalBill };
 }
 
 export function formatCountdown(seconds: number): string {

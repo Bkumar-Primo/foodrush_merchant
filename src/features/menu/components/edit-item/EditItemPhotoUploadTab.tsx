@@ -38,11 +38,11 @@ export function EditItemPhotoUploadTab({
           type="button"
           onClick={handleUploadClick}
           className={cn(
-            "flex-1 border border-dashed text-xs font-semibold py-2.5 rounded-lg transition-colors cursor-pointer text-center",
+            "flex-1 border border-dashed text-xs font-medium py-2.5 rounded-lg transition-colors cursor-pointer text-center",
             tokens.colors.brandBorder,
             tokens.colors.brandBgLight,
             tokens.colors.brand,
-            "hover:bg-blue-50/40",
+            "hover:bg-[#D4543C]/10",
           )}
         >
           + Upload from PC

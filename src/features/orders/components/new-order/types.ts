@@ -9,7 +9,6 @@ export interface NewOrderModalProps {
 }
 
 export interface OrderBilling {
-  isSimulatedLitti: boolean;
   itemTotal: number;
   taxes: number;
   discount: number;

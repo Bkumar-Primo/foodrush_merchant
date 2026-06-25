@@ -59,7 +59,6 @@ export function OrderDetailView({
           activeTab={activeTab}
           orderId={order.id}
           rider={state.rider}
-          isRiderArrived={state.isRiderArrived}
           uniformFeedback={state.uniformFeedback}
           setUniformFeedback={state.setUniformFeedback}
           onDispatch={onDispatch}

@@ -1,13 +1,7 @@
 "use client";
 
 import { type ReactNode, useEffect, useState } from "react";
-import { FoodRushSplash } from "@/components/common/FoodRushSplash";
-
-const SPLASH_SESSION_KEY = "foodrush-splash-seen";
-const SPLASH_MIN_MS = 3600;
-const SPLASH_EXIT_MS = 450;
-
-type SplashPhase = "hidden" | "visible" | "exiting";
+import { SPLASH_DOM_IDS, SPLASH_TIMING, STORAGE_KEYS } from "@/lib/constants";
 
 interface DashboardSplashGateProps {
   children: ReactNode;
@@ -15,39 +9,53 @@ interface DashboardSplashGateProps {
 
 function hasSeenSplashThisSession(): boolean {
   try {
-    return sessionStorage.getItem(SPLASH_SESSION_KEY) === "1";
+    return sessionStorage.getItem(STORAGE_KEYS.splashSeen) === "1";
   } catch {
     return true;
   }
 }
 
-export function DashboardSplashGate({ children }: DashboardSplashGateProps): React.JSX.Element {
-  const [hydrated, setHydrated] = useState(false);
-  const [phase, setPhase] = useState<SplashPhase>("hidden");
+function isSplashBlocking(): boolean {
+  return document.getElementById(SPLASH_DOM_IDS.blockStyle) !== null;
+}
+
+function clearSplashBlock(): void {
+  document.getElementById(SPLASH_DOM_IDS.blockStyle)?.remove();
+}
+
+function getSplashFallback(): HTMLElement | null {
+  return document.getElementById(SPLASH_DOM_IDS.fallback);
+}
+
+export function DashboardSplashGate({ children }: DashboardSplashGateProps): React.ReactNode {
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
-    setHydrated(true);
+    const fallback = getSplashFallback();
 
-    if (hasSeenSplashThisSession()) {
+    if (hasSeenSplashThisSession() || !isSplashBlocking()) {
+      clearSplashBlock();
+      fallback?.remove();
+      setShowContent(true);
       return;
     }
-
-    setPhase("visible");
 
     let exitTimer: number | undefined;
 
     const minTimer = window.setTimeout(() => {
-      setPhase("exiting");
+      fallback?.classList.add("splash-overlay-exit");
 
       exitTimer = window.setTimeout(() => {
         try {
-          sessionStorage.setItem(SPLASH_SESSION_KEY, "1");
+          sessionStorage.setItem(STORAGE_KEYS.splashSeen, "1");
         } catch {
           // ignore private browsing quota errors
         }
-        setPhase("hidden");
-      }, SPLASH_EXIT_MS);
-    }, SPLASH_MIN_MS);
+        clearSplashBlock();
+        fallback?.remove();
+        setShowContent(true);
+      }, SPLASH_TIMING.exitMs);
+    }, SPLASH_TIMING.minMs);
 
     return () => {
       window.clearTimeout(minTimer);
@@ -57,12 +65,9 @@ export function DashboardSplashGate({ children }: DashboardSplashGateProps): Rea
     };
   }, []);
 
-  const showOverlay = hydrated && (phase === "visible" || phase === "exiting");
+  if (!showContent) {
+    return null;
+  }
 
-  return (
-    <>
-      {children}
-      {showOverlay && <FoodRushSplash exiting={phase === "exiting"} />}
-    </>
-  );
+  return <>{children}</>;
 }

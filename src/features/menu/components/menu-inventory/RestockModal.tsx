@@ -40,7 +40,7 @@ export function RestockModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-xs select-none">
       <div className="w-full max-w-[460px] bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl border border-zinc-200 dark:border-zinc-800 p-6 flex flex-col space-y-4 animate-in fade-in zoom-in-95 duration-100">
         <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 pb-3">
-          <h3 className="text-sm font-semibold text-zinc-900 dark:text-white">
+          <h3 className="text-sm font-medium text-zinc-900 dark:text-white">
             When will this be back in stock?
           </h3>
           <button

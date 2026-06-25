@@ -72,7 +72,7 @@ export function MenuEditorAddonOptionsPanel({
         <button
           type="button"
           onClick={handleDeleteGroup}
-          className="text-[10px] font-semibold text-red-500 hover:underline"
+          className="text-[10px] font-medium text-red-500 hover:underline"
         >
           Delete Group
         </button>
@@ -108,7 +108,7 @@ export function MenuEditorAddonOptionsPanel({
         </div>
 
         <div className="border-t border-dashed border-zinc-150 pt-4 space-y-3">
-          <span className="text-[10px] font-bold text-zinc-400 uppercase block">
+          <span className="text-[10px] font-medium text-zinc-400 uppercase block">
             Add new option item
           </span>
           <div className="flex items-center gap-2">

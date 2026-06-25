@@ -1,3 +1,5 @@
+import { ORDERS_PAGE_COPY } from "@/features/orders/constants";
+
 export function OrdersPreparingEmptyIllustration(): React.JSX.Element {
   return (
     <div className="flex flex-col items-center justify-center py-20 text-center">
@@ -26,10 +28,12 @@ export function OrdersPreparingEmptyIllustration(): React.JSX.Element {
         <path d="M106 95h16v18c0 3-2 5-5 5h-6c-3 0-5-2-5-5V95z" strokeWidth="1.5" />
         <path d="M100 98c-8 3-12 8-15 12" />
       </svg>
-      <p className="text-sm font-black text-zinc-500 dark:text-zinc-400">
-        Orders being prepared in your kitchen
+      <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+        {ORDERS_PAGE_COPY.preparingEmptyTitle}
       </p>
-      <p className="mt-0.5 text-xs font-bold text-zinc-400 dark:text-zinc-500">will appear here</p>
+      <p className="mt-0.5 text-xs font-medium text-zinc-400 dark:text-zinc-500">
+        {ORDERS_PAGE_COPY.preparingEmptySubtitle}
+      </p>
     </div>
   );
 }

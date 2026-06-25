@@ -27,10 +27,10 @@ export function HeaderIconButtons({
         {hasUnread && (
           <span className="absolute -top-1 -right-1 flex h-2 w-2">
             <span
-              className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isUrgent ? "bg-red-400" : "bg-indigo-400"}`}
+              className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isUrgent ? "bg-red-400" : "bg-[#F4A99A]"}`}
             />
             <span
-              className={`relative inline-flex rounded-full h-2 w-2 ${isUrgent ? "bg-red-650" : "bg-indigo-650"}`}
+              className={`relative inline-flex rounded-full h-2 w-2 ${isUrgent ? "bg-red-650" : "bg-primary"}`}
             />
           </span>
         )}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { ORDER_PAGE_TABS } from "@/features/orders/constants";
 import type { Order, OrderTab } from "@/types";
 
 export type OrdersSortBy = "placed_at" | "order_id";
@@ -11,9 +12,9 @@ export function useOrdersPage(orders: Order[]) {
   const [sortBy, setSortBy] = useState<OrdersSortBy>("placed_at");
 
   const tabOrders = useMemo(() => {
-    const preparing = orders.filter((o) => o.status === "preparing");
-    const ready = orders.filter((o) => o.status === "ready_for_pickup");
-    const pickedUp = orders.filter((o) => o.status === "dispatched");
+    const preparing = orders.filter((o) => o.status === ORDER_PAGE_TABS[0].status);
+    const ready = orders.filter((o) => o.status === ORDER_PAGE_TABS[1].status);
+    const pickedUp = orders.filter((o) => o.status === ORDER_PAGE_TABS[2].status);
     return { preparing, ready, picked_up: pickedUp };
   }, [orders]);
 
@@ -46,9 +47,3 @@ export function useOrdersPage(orders: Order[]) {
     filteredOrders,
   };
 }
-
-export const ORDER_PAGE_TABS: { key: OrderTab; label: string }[] = [
-  { key: "preparing", label: "Preparing" },
-  { key: "ready", label: "Ready" },
-  { key: "picked_up", label: "Picked up" },
-];

@@ -31,13 +31,13 @@ export function MenuInventoryFiltersPanel({
   return (
     <div className="absolute right-0 top-full mt-1.5 z-30 w-72 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl p-4 space-y-3 text-left">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold">Filter inventory</span>
+        <span className="text-xs font-medium">Filter inventory</span>
         {hasActive && (
           <button
             type="button"
             onClick={() => onFiltersChange(DEFAULT_MENU_FILTERS)}
             className={cn(
-              "text-[10px] font-semibold hover:underline cursor-pointer",
+              "text-[10px] font-medium hover:underline cursor-pointer",
               tokens.colors.brand,
             )}
           >

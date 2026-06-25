@@ -22,7 +22,7 @@ export function OrderHistoryCalendarNav({
       >
         <ChevronLeft className="h-4 w-4 text-zinc-500" />
       </button>
-      <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200">
+      <span className="text-xs font-medium text-zinc-800 dark:text-zinc-200">
         {new Date(calendarYear, calendarMonth).toLocaleDateString("en-US", {
           month: "long",
           year: "numeric",

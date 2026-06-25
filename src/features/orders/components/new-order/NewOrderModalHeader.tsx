@@ -13,17 +13,17 @@ export function NewOrderModalHeader({
 }: NewOrderModalHeaderProps): React.JSX.Element {
   return (
     <div className="px-5 py-2.5 flex items-center justify-between">
-      <span className="font-black text-base text-zinc-900 dark:text-white">1 new order</span>
+      <span className="font-medium text-base text-zinc-900 dark:text-white">1 new order</span>
       <div className="flex items-center gap-1.5">
         <button
           type="button"
           onClick={onMuteToggle}
-          className="flex items-center gap-1 px-2.5 py-0.5 border border-blue-600 dark:border-blue-500 rounded-sm text-[11px] font-bold text-blue-600 dark:text-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-950/20 cursor-pointer transition-colors"
+          className="flex items-center gap-1 px-2.5 py-0.5 border border-primary rounded-sm text-[11px] font-medium text-primary hover:bg-[#D4543C]/10 dark:hover:bg-[#D4543C]/15 cursor-pointer transition-colors"
         >
           {!isMuted ? (
             <span className="flex items-center gap-1">
               <span>Mute</span>
-              <Volume2 className="h-3 w-3 text-blue-600 dark:text-blue-400" />
+              <Volume2 className="h-3 w-3 text-primary" />
             </span>
           ) : (
             <span className="flex items-center gap-1">

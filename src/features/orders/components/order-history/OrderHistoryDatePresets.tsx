@@ -43,7 +43,7 @@ export function OrderHistoryDatePresets({
             const { start, end } = buildPresetRange(preset.key);
             onPresetSelect(preset.key, start, end);
           }}
-          className="px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-955 text-[9px] font-semibold text-zinc-550 dark:text-zinc-450 hover:bg-zinc-50 dark:hover:bg-zinc-900 cursor-pointer"
+          className="px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-955 text-[9px] font-medium text-zinc-550 dark:text-zinc-450 hover:bg-zinc-50 dark:hover:bg-zinc-900 cursor-pointer"
         >
           {preset.label}
         </button>
@@ -51,7 +51,7 @@ export function OrderHistoryDatePresets({
       <button
         type="button"
         onClick={onDone}
-        className={`px-2 py-0.5 rounded ${tokens.colors.brandBg} text-white text-[9px] font-semibold cursor-pointer ml-auto`}
+        className={`px-2 py-0.5 rounded ${tokens.colors.brandBg} text-white text-[9px] font-medium cursor-pointer ml-auto`}
       >
         Done
       </button>

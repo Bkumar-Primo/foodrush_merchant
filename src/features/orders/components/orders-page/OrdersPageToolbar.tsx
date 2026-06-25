@@ -23,7 +23,7 @@ export function OrdersPageToolbar({
         <select
           value={sortBy}
           onChange={(e) => onSortChange(e.target.value as OrdersSortBy)}
-          className="appearance-none rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 pl-3 pr-8 py-1.5 text-xs font-semibold text-zinc-700 dark:text-zinc-300 focus:outline-none focus:ring-1 focus:ring-zinc-400 cursor-pointer"
+          className="appearance-none rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 pl-3 pr-8 py-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 focus:outline-none focus:ring-1 focus:ring-zinc-400 cursor-pointer"
         >
           <option value="placed_at">Sort: Newest First</option>
           <option value="order_id">Sort: Order ID</option>

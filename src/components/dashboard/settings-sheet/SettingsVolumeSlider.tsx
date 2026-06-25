@@ -15,7 +15,7 @@ export function SettingsVolumeSlider({
 }: SettingsVolumeSliderProps): React.JSX.Element {
   return (
     <div className="space-y-1.5 pl-6 pt-1">
-      <div className="flex justify-between items-center text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+      <div className="flex justify-between items-center text-[10px] font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
         <span>Volume</span>
         <span>{volume}%</span>
       </div>

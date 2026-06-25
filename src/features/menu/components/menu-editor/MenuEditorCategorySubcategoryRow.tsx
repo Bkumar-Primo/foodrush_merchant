@@ -23,9 +23,9 @@ export function MenuEditorCategorySubcategoryRow({
         isActive
           ? cn(
               tokens.colors.brand,
-              "font-semibold",
+              "font-medium",
               tokens.colors.brandBorder,
-              "bg-blue-50/20 dark:bg-indigo-950/15",
+              "bg-[#D4543C]/10 dark:bg-[#D4543C]/15",
             )
           : "text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 border-zinc-200 dark:border-zinc-800",
       )}

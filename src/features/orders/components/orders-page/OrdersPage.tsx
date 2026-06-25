@@ -1,12 +1,13 @@
 "use client";
 
+import { ORDER_PAGE_TABS } from "@/features/orders/constants";
 import type { Order } from "@/types";
 import OrderDetailView from "../OrderDetailView";
 import { OrdersPageTabs } from "./OrdersPageTabs";
 import { OrdersPageToolbar } from "./OrdersPageToolbar";
 import { OrdersPreparingEmptyIllustration } from "./OrdersPreparingEmptyIllustration";
 import { OrdersTabEmptyState } from "./OrdersTabEmptyState";
-import { ORDER_PAGE_TABS, useOrdersPage } from "./useOrdersPage";
+import { useOrdersPage } from "./useOrdersPage";
 
 interface OrdersPageProps {
   orders: Order[];

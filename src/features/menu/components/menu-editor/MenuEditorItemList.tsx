@@ -31,7 +31,7 @@ export function MenuEditorItemList({
   return (
     <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#F9FAFB] dark:bg-zinc-955/20">
       <div className="px-6 py-3 border-b border-zinc-150 dark:border-zinc-950 bg-[#F5FBFC] flex justify-between items-center shrink-0">
-        <span className="text-xs font-semibold text-zinc-900 dark:text-white">
+        <span className="text-xs font-medium text-zinc-900 dark:text-white">
           {breadcrumb} ({activeItems.length})
         </span>
       </div>
@@ -41,7 +41,7 @@ export function MenuEditorItemList({
           type="button"
           onClick={onAddItem}
           className={cn(
-            "w-full flex items-center justify-start gap-1.5 px-6 py-3 text-xs font-semibold hover:bg-blue-50/15 dark:hover:bg-blue-950/5 cursor-pointer transition-colors",
+            "w-full flex items-center justify-start gap-1.5 px-6 py-3 text-xs font-medium hover:bg-[#D4543C]/5 dark:hover:bg-[#D4543C]/10 cursor-pointer transition-colors",
             tokens.colors.brand,
           )}
         >
@@ -73,7 +73,7 @@ function EmptyItemsState({ searchQuery, menuFilters }: EmptyItemsStateProps): Re
   return (
     <div className="flex flex-col items-center justify-center py-20 text-center space-y-2">
       <AlertCircle className="h-8 w-8 text-zinc-300 dark:text-zinc-700" />
-      <p className="text-xs font-semibold text-zinc-500">No items found</p>
+      <p className="text-xs font-medium text-zinc-500">No items found</p>
       <p className="text-[10px] text-zinc-400">
         {hasFilters
           ? "Try adjusting your search or filters."

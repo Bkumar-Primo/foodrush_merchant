@@ -62,8 +62,16 @@ features/orders/
 
 ## Other top-level `src/` folders
 
-| Folder   | Purpose                          |
-|----------|----------------------------------|
-| `hooks/` | App-wide React hooks             |
-| `stores/`| Zustand stores                   |
-| `types/` | Shared TypeScript types          |
+| Folder      | Purpose                          |
+|-------------|----------------------------------|
+| `lib/constants/` | App-wide copy, storage keys, timing (`@/lib/constants`) |
+| `hooks/`    | App-wide React hooks             |
+| `stores/`   | Zustand stores                   |
+| `types/`    | Shared TypeScript types          |
+
+## Constants
+
+- **App-wide** (`src/lib/constants/`): brand, auth copy, storage keys, timing, splash bootstrap.
+- **Dashboard** (`src/components/dashboard/constants/`): navigation, settings, dialogs, notifications.
+- **Features** (`src/features/<domain>/constants/`): domain labels, tabs, UI copy.
+- Import via barrels (`@/lib/constants`, `@/features/orders/constants`). Do not hardcode user-facing strings or magic numbers in components.

@@ -14,7 +14,16 @@ interface OrderHistoryDeliveryStatusProps {
 export function OrderHistoryDeliveryStatus({
   order,
 }: OrderHistoryDeliveryStatusProps): React.JSX.Element {
-  const rider = getSimulatedRider(order.id);
+  const rider = getSimulatedRider(order);
+  if (!rider) {
+    return (
+      <div className="flex items-center gap-3 p-3 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+        <p className="text-xs text-zinc-600 dark:text-zinc-400">
+          Delivery partner details unavailable
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center gap-3 p-3 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
@@ -22,8 +31,8 @@ export function OrderHistoryDeliveryStatus({
         <Image src={rider.avatar} alt={rider.name} fill className="object-cover" />
       </div>
       <p className="text-xs text-zinc-600 dark:text-zinc-400">
-        <span className="font-semibold text-zinc-800 dark:text-zinc-200">{rider.name}</span>{" "}
-        delivered the order at {formatHistoryTime(order.updatedAt)}
+        <span className="font-medium text-zinc-800 dark:text-zinc-200">{rider.name}</span> delivered
+        the order at {formatHistoryTime(order.updatedAt)}
       </p>
     </div>
   );
@@ -38,7 +47,7 @@ export function OrderHistoryCustomerDetails({
 }: OrderHistoryCustomerDetailsProps): React.JSX.Element {
   return (
     <div>
-      <h4 className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-3">
+      <h4 className="text-[10px] font-medium uppercase tracking-widest text-zinc-400 mb-3">
         Customer Details
       </h4>
       <div className="space-y-1.5 text-xs text-zinc-600 dark:text-zinc-400">

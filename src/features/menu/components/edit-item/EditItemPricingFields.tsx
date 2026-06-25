@@ -29,12 +29,12 @@ export function EditItemPricingFields({ form }: EditItemPricingFieldsProps): Rea
 
       <div
         className={cn(
-          "flex gap-2.5 p-3 rounded-lg border text-zinc-655 dark:text-indigo-400",
+          "flex gap-2.5 p-3 rounded-lg border text-zinc-655 dark:text-[#F4A99A]",
           tokens.colors.brandBgLight,
-          "border-blue-200/50 dark:border-indigo-900/30",
+          "border-[#F4A99A]/50 dark:border-[#D4543C]/30",
         )}
       >
-        <AlertCircle className="h-4 w-4 text-indigo-555 shrink-0 mt-0.5" />
+        <AlertCircle className="h-4 w-4 text-primary shrink-0 mt-0.5" />
         <div className="space-y-0.5 text-left">
           <span className={cn(tokens.fontSizes.micro, "block")}>Price Tip!</span>
           <p className="text-[9.5px] leading-relaxed font-medium">
@@ -80,7 +80,7 @@ export function EditItemPricingFields({ form }: EditItemPricingFieldsProps): Rea
               {charge.name}
             </option>
           ))}
-          <option value="create-custom" className={cn("font-semibold", tokens.colors.brand)}>
+          <option value="create-custom" className={cn("font-medium", tokens.colors.brand)}>
             + Create a packaging charge
           </option>
         </EditItemChevronSelect>

@@ -22,7 +22,7 @@ export function SettingsRingtonePicker({
     <div className="space-y-1.5 pl-6 pt-1">
       <label
         htmlFor="ringtone-select"
-        className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider"
+        className="text-[10px] font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider"
       >
         Select ringtone
       </label>
@@ -33,7 +33,7 @@ export function SettingsRingtonePicker({
             value={selectedRingtone}
             onChange={onRingtoneChange}
             disabled={!soundEnabled}
-            className="w-full appearance-none rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 pl-3 pr-8 py-2 text-xs font-semibold text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-400 dark:focus:ring-zinc-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+            className="w-full appearance-none rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 pl-3 pr-8 py-2 text-xs font-medium text-zinc-800 dark:text-zinc-200 focus:outline-none focus:ring-1 focus:ring-zinc-400 dark:focus:ring-zinc-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
             {(
               Object.entries(RINGTONE_MAP) as [RingtoneOption, { label: string; file: string }][]

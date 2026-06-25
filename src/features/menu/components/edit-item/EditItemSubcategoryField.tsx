@@ -33,7 +33,7 @@ export function EditItemSubcategoryField({
               setSubcategory("");
             }}
             className={cn(
-              "text-[10px] font-semibold hover:underline cursor-pointer",
+              "text-[10px] font-medium hover:underline cursor-pointer",
               tokens.colors.brand,
             )}
           >
@@ -68,7 +68,7 @@ export function EditItemSubcategoryField({
               {sub}
             </option>
           ))}
-          <option value="__new__" className={cn("font-semibold", tokens.colors.brand)}>
+          <option value="__new__" className={cn("font-medium", tokens.colors.brand)}>
             + Create New Subcategory...
           </option>
         </EditItemChevronSelect>

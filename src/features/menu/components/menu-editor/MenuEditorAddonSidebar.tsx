@@ -35,7 +35,7 @@ export function MenuEditorAddonSidebar({
           type="button"
           onClick={onBackToMenu}
           className={cn(
-            "text-[10px] font-semibold hover:underline flex items-center gap-0.5 shrink-0",
+            "text-[10px] font-medium hover:underline flex items-center gap-0.5 shrink-0",
             tokens.colors.brand,
           )}
         >
@@ -55,10 +55,7 @@ export function MenuEditorAddonSidebar({
           <button
             type="button"
             onClick={onCreateGroup}
-            className={cn(
-              "text-[10px] font-semibold hover:underline shrink-0",
-              tokens.colors.brand,
-            )}
+            className={cn("text-[10px] font-medium hover:underline shrink-0", tokens.colors.brand)}
           >
             + Create New Group
           </button>
@@ -92,7 +89,7 @@ function AddonGroupRow({ group, isSelected, onCustomize }: AddonGroupRowProps): 
     <div
       className={cn(
         "p-4 flex items-start justify-between gap-3 hover:bg-zinc-50/50 transition-colors",
-        isSelected && "bg-blue-50/15",
+        isSelected && "bg-[#D4543C]/10",
       )}
     >
       <div className="flex items-start gap-2.5 min-w-0 text-left">
@@ -103,14 +100,14 @@ function AddonGroupRow({ group, isSelected, onCustomize }: AddonGroupRowProps): 
           className={cn("mt-0.5 h-3.5 w-3.5 border-zinc-300 rounded shrink-0", tokens.colors.brand)}
         />
         <div className="min-w-0">
-          <span className="text-xs font-semibold text-zinc-800 block truncate">{group.name}</span>
+          <span className="text-xs font-medium text-zinc-800 block truncate">{group.name}</span>
           <span className="text-[10px] text-zinc-450 block truncate">{optionsSummary}</span>
         </div>
       </div>
       <button
         type="button"
         onClick={onCustomize}
-        className="text-[10px] font-semibold text-zinc-800 hover:text-[#2563EB] shrink-0"
+        className="text-[10px] font-medium text-zinc-800 hover:text-primary shrink-0"
       >
         Customize
       </button>

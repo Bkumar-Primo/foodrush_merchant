@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { TIMING } from "@/lib/constants";
 import { deleteInventoryItem } from "@/lib/db";
 import type { MenuItem } from "@/types";
 import {
@@ -176,7 +177,7 @@ export function useMenuEditor({
 
   const triggerToast = (title: string, desc: string): void => {
     setToastMessage({ title, desc });
-    setTimeout(() => setToastMessage(null), 3000);
+    setTimeout(() => setToastMessage(null), TIMING.menuEditorToastMs);
   };
 
   const handleEditClick = (item: MenuItem): void => {

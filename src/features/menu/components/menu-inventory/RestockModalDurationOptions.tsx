@@ -58,7 +58,7 @@ export function RestockModalDurationOptions({
                   <span className={`size-2.5 rounded-full ${tokens.colors.brandBg}`} />
                 )}
               </div>
-              <span className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+              <span className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
                 {opt.label}
               </span>
             </div>

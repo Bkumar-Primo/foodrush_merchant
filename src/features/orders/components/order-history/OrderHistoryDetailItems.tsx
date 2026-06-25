@@ -15,12 +15,12 @@ export function OrderHistoryDetailItems({
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <h4 className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+        <h4 className="text-[10px] font-medium uppercase tracking-widest text-zinc-400">
           Order Details
         </h4>
         <button
           type="button"
-          className="flex items-center gap-1.5 px-2.5 py-1 border border-blue-500 rounded text-blue-600 text-[10px] font-bold hover:bg-blue-50 dark:hover:bg-blue-950/20 cursor-pointer"
+          className="flex items-center gap-1.5 px-2.5 py-1 border border-primary rounded text-primary text-[10px] font-medium hover:bg-[#D4543C]/10 dark:hover:bg-[#D4543C]/15 cursor-pointer"
         >
           <Printer className="h-3 w-3" /> Print Order
         </button>
@@ -38,7 +38,7 @@ export function OrderHistoryDetailItems({
               </span>
             </div>
             {item.name.toLowerCase().includes("litti") && (
-              <p className="text-[11px] text-blue-600 mt-0.5">
+              <p className="text-[11px] text-primary mt-0.5">
                 Choose Your Beverage: Thums Up Soft Beverage [250 ml]
               </p>
             )}
@@ -57,14 +57,14 @@ export function OrderHistoryDetailItems({
         </div>
         <div className="flex items-center justify-between pt-2 border-t border-zinc-100 dark:border-zinc-800">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-bold text-zinc-900 dark:text-white">Total Bill</span>
+            <span className="text-sm font-medium text-zinc-900 dark:text-white">Total Bill</span>
             {order.status === "delivered" && (
-              <span className="px-1.5 py-0.5 rounded border border-emerald-500 text-emerald-600 text-[9px] font-bold uppercase">
+              <span className="px-1.5 py-0.5 rounded border border-emerald-500 text-emerald-600 text-[9px] font-medium uppercase">
                 Paid
               </span>
             )}
           </div>
-          <span className="text-sm font-bold text-zinc-900 dark:text-white">₹{billTotal}</span>
+          <span className="text-sm font-medium text-zinc-900 dark:text-white">₹{billTotal}</span>
         </div>
       </div>
     </div>

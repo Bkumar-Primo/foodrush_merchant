@@ -9,8 +9,7 @@ import type { UniformFeedback } from "./useOrderDetailState";
 interface OrderDetailRiderColumnProps {
   activeTab: OrderTab;
   orderId: string;
-  rider: SimulatedRider;
-  isRiderArrived: boolean;
+  rider: SimulatedRider | null;
   uniformFeedback: UniformFeedback;
   setUniformFeedback: (feedback: UniformFeedback) => void;
   onDispatch: (id: string) => void | Promise<void>;
@@ -20,22 +19,19 @@ export function OrderDetailRiderColumn({
   activeTab,
   orderId,
   rider,
-  isRiderArrived,
   uniformFeedback,
   setUniformFeedback,
   onDispatch,
 }: OrderDetailRiderColumnProps): React.JSX.Element {
   return (
     <div className="flex flex-col p-4 gap-5">
-      {activeTab === "preparing" && (
-        <PreparingRiderPanel rider={rider} isRiderArrived={isRiderArrived} />
-      )}
+      {activeTab === "preparing" && <PreparingRiderPanel rider={rider} />}
 
-      {activeTab === "ready" && (
+      {activeTab === "ready" && rider && (
         <ReadyRiderPanel rider={rider} orderId={orderId} onDispatch={onDispatch} />
       )}
 
-      {activeTab === "picked_up" && (
+      {activeTab === "picked_up" && rider && (
         <PickedUpRiderPanel
           rider={rider}
           uniformFeedback={uniformFeedback}

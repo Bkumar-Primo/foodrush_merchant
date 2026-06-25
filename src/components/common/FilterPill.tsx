@@ -18,7 +18,7 @@ export function FilterPill({
     <button
       type={type}
       className={cn(
-        "px-2.5 py-1 rounded-md text-[10px] font-semibold border cursor-pointer transition-colors",
+        "px-2.5 py-1 rounded-md text-[10px] font-medium border cursor-pointer transition-colors",
         active
           ? cn(tokens.colors.brandBg, "text-white", tokens.colors.brandBorder)
           : "bg-white dark:bg-zinc-900 text-zinc-600 border-zinc-200 dark:border-zinc-700",

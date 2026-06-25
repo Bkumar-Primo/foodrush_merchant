@@ -23,7 +23,7 @@ export function NewOrderFooterActions({
         type="button"
         onClick={onReject}
         disabled={isAccepting || isAccepted}
-        className="w-[30%] min-h-10 border border-red-600 dark:border-red-500 bg-transparent text-red-600 dark:text-red-500 hover:bg-red-600 hover:text-white dark:hover:bg-red-500 dark:hover:text-white rounded-md py-2.5 text-xs font-black transition-all duration-200 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 text-center"
+        className="w-[30%] min-h-10 border border-red-600 dark:border-red-500 bg-transparent text-red-600 dark:text-red-500 hover:bg-red-600 hover:text-white dark:hover:bg-red-500 dark:hover:text-white rounded-md py-2.5 text-xs font-medium transition-all duration-200 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 text-center"
       >
         Reject
       </button>
@@ -31,7 +31,7 @@ export function NewOrderFooterActions({
         type="button"
         onClick={onAccept}
         disabled={isAccepting}
-        className="relative w-[70%] min-h-10 bg-[#249B5E] hover:bg-[#1E8650] disabled:hover:bg-[#249B5E] text-white rounded-md py-2.5 text-xs font-black transition-all cursor-pointer disabled:cursor-not-allowed overflow-hidden text-center active:scale-[0.99] disabled:active:scale-100 flex items-center justify-center"
+        className="relative w-[70%] min-h-10 bg-[#249B5E] hover:bg-[#1E8650] disabled:hover:bg-[#249B5E] text-white rounded-md py-2.5 text-xs font-medium transition-all cursor-pointer disabled:cursor-not-allowed overflow-hidden text-center active:scale-[0.99] disabled:active:scale-100 flex items-center justify-center"
       >
         {!isAccepting && (
           <div

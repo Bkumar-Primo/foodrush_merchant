@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import Header from "@/components/dashboard/Header";
 import NotificationsSheet from "@/components/dashboard/NotificationsSheet";
+import ProfileSheet from "@/components/dashboard/ProfileSheet";
 import SettingsSheet from "@/components/dashboard/SettingsSheet";
 import Sidebar from "@/components/dashboard/Sidebar";
 import { tokens } from "@/lib/utils";
@@ -22,7 +23,6 @@ export function DashboardShell({ children }: DashboardShellProps): React.JSX.Ele
       className={`${dashboard.theme} flex flex-col h-screen w-screen overflow-hidden ${tokens.colors.pageBg} font-sans ${tokens.colors.textPrimary}`}
     >
       <Header
-        userProfile={dashboard.userProfile}
         theme={dashboard.theme}
         toggleTheme={dashboard.toggleTheme}
       />
@@ -32,13 +32,13 @@ export function DashboardShell({ children }: DashboardShellProps): React.JSX.Ele
           orders={dashboard.orders}
           activeTab={dashboard.activeTab}
           setActiveTab={dashboard.setActiveTab}
-          simulateIncomingOrder={dashboard.simulateIncomingOrder}
         />
 
         {children}
       </div>
 
       <SettingsSheet />
+      <ProfileSheet />
       <NotificationsSheet />
 
       {dashboard.modalOrder && (

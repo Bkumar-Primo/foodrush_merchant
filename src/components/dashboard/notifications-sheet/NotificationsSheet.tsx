@@ -39,13 +39,13 @@ export function NotificationsSheet(): React.JSX.Element {
 
         {visibleNotifications.length > 0 && (
           <div className="px-6 py-2 bg-zinc-50/50 dark:bg-zinc-900/30 border-b border-zinc-100 dark:border-zinc-900 flex justify-between items-center shrink-0">
-            <span className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">
+            <span className="text-[10px] font-medium text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">
               Recent Alerts
             </span>
             {hasUnreadNonOrder && (
               <button
                 onClick={markAllAsRead}
-                className="text-[10px] font-bold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors cursor-pointer"
+                className="text-[10px] font-medium text-primary hover:text-[#B8433A] dark:text-[#F4A99A] dark:hover:text-primary transition-colors cursor-pointer"
               >
                 Mark all as read
               </button>

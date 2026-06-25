@@ -29,7 +29,7 @@ export function EditItemPackagingChargeModal({
     <div className="absolute inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-6 select-none">
       <div className="w-full max-w-[380px] bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl border border-zinc-200 dark:border-zinc-800 flex flex-col p-5 space-y-4 animate-in fade-in zoom-in-95 duration-100">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-900 dark:text-white text-left">
+          <h3 className="text-sm font-medium text-zinc-900 dark:text-white text-left">
             Create custom packaging charge
           </h3>
           <button
@@ -72,7 +72,7 @@ export function EditItemPackagingChargeModal({
           fullWidth
           onClick={handleCreateCharge}
           disabled={!newChargeName.trim() || newChargeAmount <= 0}
-          className="py-2.5 font-semibold rounded-lg shadow-xs disabled:opacity-40 disabled:cursor-not-allowed"
+          className="py-2.5 font-medium rounded-lg shadow-xs disabled:opacity-40 disabled:cursor-not-allowed"
         >
           Create packaging charge
         </BrandButton>

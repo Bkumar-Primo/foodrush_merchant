@@ -28,7 +28,7 @@ export const CustomerComplaints: React.FC = () => {
           <span className={`${tokens.fontSizes.bodyBold} ${tokens.colors.textMuted}`}>
             Total Tickets
           </span>
-          <h4 className={`text-xl font-extrabold ${tokens.colors.textPrimary} mt-1`}>
+          <h4 className={`text-xl font-medium ${tokens.colors.textPrimary} mt-1`}>
             {totalTickets}
           </h4>
         </div>
@@ -36,13 +36,13 @@ export const CustomerComplaints: React.FC = () => {
           className={`p-4 rounded-xl border ${tokens.colors.border} ${tokens.colors.cardBgMuted}`}
         >
           <span className={`${tokens.fontSizes.bodyBold} text-amber-505`}>Pending Resolution</span>
-          <h4 className="text-xl font-extrabold text-amber-500 mt-1">{pendingTickets}</h4>
+          <h4 className="text-xl font-medium text-amber-500 mt-1">{pendingTickets}</h4>
         </div>
         <div
           className={`p-4 rounded-xl border ${tokens.colors.border} ${tokens.colors.cardBgMuted}`}
         >
           <span className={`${tokens.fontSizes.bodyBold} text-emerald-505`}>Resolved Today</span>
-          <h4 className="text-xl font-extrabold text-emerald-500 mt-1">{resolvedTickets}</h4>
+          <h4 className="text-xl font-medium text-emerald-500 mt-1">{resolvedTickets}</h4>
         </div>
       </div>
 
@@ -59,7 +59,7 @@ export const CustomerComplaints: React.FC = () => {
                   Order #{ticket.orderId}
                 </span>
                 <span
-                  className={`text-[10px] font-bold px-2 py-0.5 rounded border ${
+                  className={`text-[10px] font-medium px-2 py-0.5 rounded border ${
                     ticket.type === "Missing Item"
                       ? "bg-amber-50 border-amber-200 text-amber-600 dark:bg-amber-950/20 dark:border-amber-900/30"
                       : "bg-rose-50 border-rose-200 text-rose-600 dark:bg-rose-950/20 dark:border-rose-900/30"
@@ -73,7 +73,7 @@ export const CustomerComplaints: React.FC = () => {
               </div>
               <p className={`mt-2 ${tokens.fontSizes.bodyBold} ${tokens.colors.textSecondary}`}>
                 Customer:{" "}
-                <span className="font-semibold text-zinc-950 dark:text-white">
+                <span className="font-medium text-zinc-950 dark:text-white">
                   {ticket.customerName}
                 </span>{" "}
                 (Item: {ticket.item})
@@ -85,7 +85,7 @@ export const CustomerComplaints: React.FC = () => {
 
             <div className="flex items-center gap-3.5">
               <span
-                className={`flex items-center gap-1 text-xs font-bold ${
+                className={`flex items-center gap-1 text-xs font-medium ${
                   ticket.status === "resolved" ? "text-emerald-500" : "text-amber-500"
                 }`}
               >

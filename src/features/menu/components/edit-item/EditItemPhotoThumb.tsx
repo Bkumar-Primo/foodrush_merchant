@@ -21,7 +21,7 @@ export function EditItemPhotoThumb({ image, onClick }: EditItemPhotoThumbProps):
           className={cn(
             "w-16 h-16 rounded-xl border-2 border-dashed border-zinc-200 dark:border-zinc-800",
             tokens.colors.brandBorder,
-            "hover:border-[#2563EB]/55 hover:bg-blue-50/5 dark:hover:bg-blue-955/5",
+            "hover:border-[#D4543C]/55 hover:bg-[#D4543C]/5 dark:hover:bg-[#D4543C]/10",
             "bg-zinc-50/30 dark:bg-zinc-950/20 overflow-hidden flex flex-col items-center justify-center shrink-0 transition-all cursor-pointer relative group",
           )}
         >

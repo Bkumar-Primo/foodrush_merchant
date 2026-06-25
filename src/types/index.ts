@@ -37,6 +37,10 @@ export interface Order {
   updatedAt: number;
   deliveryCoords: [number, number]; // [lat, lng]
   riderCoords?: [number, number]; // [lat, lng]
+  riderName?: string;
+  riderPhone?: string;
+  riderOtp?: number;
+  riderAvatar?: string;
   prepTime?: number;
   prepStartedAt?: number;
 }

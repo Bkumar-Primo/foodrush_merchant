@@ -48,7 +48,7 @@ export function OrderDetailItemList({
   return (
     <>
       <div className="flex items-start mx-3 my-1">
-        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-sm bg-[#FFF2F2] dark:bg-rose-950/20 border border-[#FFE0E0] dark:border-rose-900/30 text-[10px] font-bold text-[#E8604C] dark:text-rose-400 leading-none">
+        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-sm bg-[#FFF2F2] dark:bg-rose-950/20 border border-[#FFE0E0] dark:border-rose-900/30 text-[10px] font-medium text-[#E8604C] dark:text-rose-400 leading-none">
           <span className="w-3.5 h-3.5 rounded-full bg-rose-500 flex items-center justify-center text-white shrink-0">
             <Utensils className="h-3 w-3" />
           </span>

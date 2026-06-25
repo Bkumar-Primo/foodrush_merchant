@@ -10,7 +10,7 @@ export function NewOrderScrollIndicator({
       <button
         type="button"
         onClick={onScrollDown}
-        className="bg-[#3f3f46] hover:bg-[#52525b] dark:bg-[#27272a] dark:hover:bg-[#3f3f46] text-white px-3 py-1 rounded-full text-[10px] font-bold flex items-center gap-1.5 cursor-pointer shadow-lg border border-[#52525b] dark:border-[#3f3f46] transition-all active:scale-95"
+        className="bg-[#3f3f46] hover:bg-[#52525b] dark:bg-[#27272a] dark:hover:bg-[#3f3f46] text-white px-3 py-1 rounded-full text-[10px] font-medium flex items-center gap-1.5 cursor-pointer shadow-lg border border-[#52525b] dark:border-[#3f3f46] transition-all active:scale-95"
       >
         <span>View more details</span>
         <svg

@@ -21,7 +21,7 @@ export function HeaderProfilePill({ userProfile }: HeaderProfilePillProps): Reac
           <User className="h-3.5 w-3.5" />
         )}
       </div>
-      <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 truncate max-w-[100px]">
+      <span className="text-xs font-medium text-zinc-800 dark:text-zinc-200 truncate max-w-[100px]">
         {userProfile.name}
       </span>
     </div>

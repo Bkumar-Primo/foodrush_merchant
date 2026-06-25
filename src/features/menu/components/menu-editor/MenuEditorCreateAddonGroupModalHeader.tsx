@@ -9,7 +9,7 @@ export function MenuEditorCreateAddonGroupModalHeader({
 }: MenuEditorCreateAddonGroupModalHeaderProps): React.JSX.Element {
   return (
     <div className="flex items-center justify-between shrink-0">
-      <h3 className="text-sm font-semibold text-zinc-900 dark:text-white uppercase tracking-wider">
+      <h3 className="text-sm font-medium text-zinc-900 dark:text-white uppercase tracking-wider">
         Create Addon Group
       </h3>
       <button

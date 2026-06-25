@@ -14,11 +14,11 @@ export function NotificationsSheetHeader({
   return (
     <SheetHeader className="px-6 py-1 border-b border-zinc-100 dark:border-zinc-900 shrink-0 flex flex-row items-center justify-between">
       <div className="flex items-center gap-2">
-        <SheetTitle className="text-base font-extrabold text-zinc-900 dark:text-zinc-100">
+        <SheetTitle className="text-base font-medium text-zinc-900 dark:text-zinc-100">
           Notifications
         </SheetTitle>
         {unreadCount > 0 && (
-          <span className="rounded-full bg-indigo-650 px-1.5 py-0.5 text-[9px] font-extrabold text-white">
+          <span className="rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-medium text-primary-foreground">
             {unreadCount} new
           </span>
         )}

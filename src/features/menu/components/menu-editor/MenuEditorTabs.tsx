@@ -1,3 +1,4 @@
+import { MENU_EDITOR_TABS } from "@/features/menu/constants";
 import { cn } from "@/lib/utils";
 import { tokens } from "@/lib/utils/tokens";
 import type { SubTab } from "./types";
@@ -7,13 +8,6 @@ interface MenuEditorTabsProps {
   onTabChange: (tab: SubTab) => void;
 }
 
-const TABS: { id: SubTab; label: string }[] = [
-  { id: "editor", label: "Menu editor" },
-  { id: "inventory", label: "Manage inventory" },
-  { id: "taxes", label: "Taxes" },
-  { id: "charges", label: "Charges" },
-];
-
 export function MenuEditorTabs({
   activeSubTab,
   onTabChange,
@@ -21,7 +15,7 @@ export function MenuEditorTabs({
   return (
     <div className="border-b border-zinc-200 dark:border-zinc-800 px-6">
       <div className="flex items-center gap-6">
-        {TABS.map((tab) => {
+        {MENU_EDITOR_TABS.map((tab) => {
           const isActive = activeSubTab === tab.id;
           return (
             <button

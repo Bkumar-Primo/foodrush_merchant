@@ -32,11 +32,13 @@ export function SettingsOrderManagement({
 }: SettingsOrderManagementProps): React.JSX.Element {
   return (
     <div className="space-y-5 pb-6 border-b border-zinc-100 dark:border-zinc-900">
-      <h4 className="text-md font-bold text-black capitalize tracking-widest">Order management</h4>
+      <h4 className="text-md font-medium text-black capitalize tracking-widest">
+        Order management
+      </h4>
 
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-0.5">
-          <span className="text-xs font-bold text-zinc-850 dark:text-zinc-200 flex items-center gap-2">
+          <span className="text-xs font-medium text-zinc-850 dark:text-zinc-200 flex items-center gap-2">
             <BellRing className="h-4 w-4 text-zinc-400 shrink-0" />
             Order alerts
           </span>
@@ -51,7 +53,7 @@ export function SettingsOrderManagement({
 
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-0.5">
-          <span className="text-xs font-bold text-zinc-850 dark:text-zinc-200 flex items-center gap-2">
+          <span className="text-xs font-medium text-zinc-850 dark:text-zinc-200 flex items-center gap-2">
             <Volume2 className="h-4 w-4 text-zinc-400 shrink-0" />
             Sound alerts
           </span>

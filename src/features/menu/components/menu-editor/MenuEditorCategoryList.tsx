@@ -56,7 +56,7 @@ export function MenuEditorCategoryList({
           type="button"
           onClick={onAddCategory}
           className={cn(
-            "w-full flex items-center justify-start gap-1.5 px-4 py-3 text-xs font-medium hover:bg-blue-50/15 dark:hover:bg-blue-950/5 cursor-pointer transition-colors",
+            "w-full flex items-center justify-start gap-1.5 px-4 py-3 text-xs font-medium hover:bg-[#D4543C]/5 dark:hover:bg-[#D4543C]/10 cursor-pointer transition-colors",
             tokens.colors.brand,
           )}
         >
@@ -92,7 +92,7 @@ export function MenuEditorCategoryList({
           type="button"
           onClick={onGoToAddons}
           className={cn(
-            "w-full flex items-center justify-between py-2 px-3 border border-[#2563EB]/40 dark:border-zinc-800 hover:bg-blue-50/10 rounded-lg text-xs font-semibold cursor-pointer transition-colors",
+            "w-full flex items-center justify-between py-2 px-3 border border-[#D4543C]/40 dark:border-zinc-800 hover:bg-[#D4543C]/5 rounded-lg text-xs font-medium cursor-pointer transition-colors",
             tokens.colors.brand,
           )}
         >

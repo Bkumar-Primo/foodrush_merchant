@@ -1,12 +1,21 @@
+import Image from "next/image";
+import { BRAND_ASSETS } from "@/lib/constants";
+
 export function HeaderBrand(): React.JSX.Element {
   return (
     <div className="flex flex-col select-none shrink-0">
-      <span className="text-2xl font-black text-zinc-950 dark:text-white tracking-tight leading-none">
-        FoodRush
-      </span>
-      <span className="text-[8px] font-bold text-zinc-400 dark:text-zinc-500 tracking-widest uppercase mt-0.5">
-        — merchant console —
-      </span>
+      <div className="">
+        <Image
+          src={BRAND_ASSETS.logo}
+          alt=""
+          width={150}
+          height={150}
+          unoptimized
+          priority
+          aria-hidden
+          className="shrink-0 object-contain"
+        />
+      </div>
     </div>
   );
 }

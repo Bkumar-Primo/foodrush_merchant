@@ -28,10 +28,10 @@ export function EditItemAddonsSection({ form }: EditItemAddonsSectionProps): Rea
         onClick={() => setIsAddonsExpanded(!isAddonsExpanded)}
         className="w-full flex items-center justify-between py-2 text-left focus:outline-none cursor-pointer"
       >
-        <h4 className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 uppercase tracking-wider">
+        <h4 className="text-xs font-medium text-zinc-900 dark:text-zinc-100 uppercase tracking-wider">
           Map Addons
         </h4>
-        <span className="text-sm font-semibold text-zinc-400 hover:text-zinc-650">
+        <span className="text-sm font-medium text-zinc-400 hover:text-zinc-650">
           {isAddonsExpanded ? "—" : "+"}
         </span>
       </button>
@@ -45,7 +45,7 @@ export function EditItemAddonsSection({ form }: EditItemAddonsSectionProps): Rea
 
           {mappedAddons.length > 0 && (
             <div className="p-3 bg-zinc-50 dark:bg-zinc-950 border border-zinc-150 dark:border-zinc-850 rounded-lg text-left space-y-1">
-              <span className="text-[9px] font-semibold text-zinc-455 uppercase block">
+              <span className="text-[9px] font-medium text-zinc-455 uppercase block">
                 Currently Mapped Addons
               </span>
               <p className="text-[10px] font-medium text-zinc-700 dark:text-zinc-300">
@@ -70,7 +70,7 @@ export function EditItemAddonsSection({ form }: EditItemAddonsSectionProps): Rea
                 type="button"
                 onClick={() => setShowAddAddonGroupModal(true)}
                 className={cn(
-                  "text-[10px] font-semibold hover:underline shrink-0",
+                  "text-[10px] font-medium hover:underline shrink-0",
                   tokens.colors.brand,
                 )}
               >

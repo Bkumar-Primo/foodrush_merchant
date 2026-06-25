@@ -35,13 +35,13 @@ export function MenuEditorFiltersPanel({
   return (
     <div className="absolute right-0 top-full mt-1.5 z-30 w-72 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-xl p-4 space-y-4 text-left">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold text-zinc-800 dark:text-zinc-200">Filter menu</span>
+        <span className="text-xs font-medium text-zinc-800 dark:text-zinc-200">Filter menu</span>
         {hasActiveFilters(menuFilters) && (
           <button
             type="button"
             onClick={() => onMenuFiltersChange(DEFAULT_MENU_FILTERS)}
             className={cn(
-              "text-[10px] font-semibold hover:underline cursor-pointer",
+              "text-[10px] font-medium hover:underline cursor-pointer",
               tokens.colors.brand,
             )}
           >

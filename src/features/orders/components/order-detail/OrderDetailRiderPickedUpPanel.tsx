@@ -41,7 +41,7 @@ export function PickedUpRiderPanel({
       </div>
 
       <div className="space-y-1.5 px-3 pb-3 border-b">
-        <div className="flex items-center justify-between text-[11px] font-bold text-zinc-550 dark:text-zinc-400">
+        <div className="flex items-center justify-between text-[11px] font-medium text-zinc-550 dark:text-zinc-400">
           <span>Delivering in 12 mins</span>
         </div>
         <div className="h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">

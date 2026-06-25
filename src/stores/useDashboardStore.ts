@@ -3,6 +3,8 @@ import type { DashboardTab, MerchantStatus, UserProfile } from "@/types";
 
 export type RingtoneOption = "signature" | "siren";
 
+export type ProfileSheetSection = "edit" | "account";
+
 export function isRingtoneOption(value: string): value is RingtoneOption {
   return value === "signature" || value === "siren";
 }
@@ -27,6 +29,8 @@ export interface DashboardState {
   userProfile: UserProfile;
   merchantStatus: MerchantStatus;
   settingsOpen: boolean;
+  profileSheetOpen: boolean;
+  profileSheetSection: ProfileSheetSection;
   notificationsOpen: boolean;
   notifications: NotificationItem[];
   activeModalOrderId: string | null;
@@ -40,6 +44,7 @@ export interface DashboardState {
   setUserProfile: (profile: UserProfile) => void;
   setMerchantStatus: (status: MerchantStatus) => void;
   setSettingsOpen: (open: boolean) => void;
+  setProfileSheetOpen: (open: boolean, section?: ProfileSheetSection) => void;
   setNotificationsOpen: (open: boolean) => void;
   setNotifications: (notifications: NotificationItem[]) => void;
   addNotification: (notification: Omit<NotificationItem, "id" | "time" | "read">) => void;
@@ -49,7 +54,6 @@ export interface DashboardState {
   addMinimizedOrderId: (id: string) => void;
   removeMinimizedOrderId: (id: string) => void;
   resolveOrderNotification: (orderId: string) => void;
-  clearAll: () => void;
 }
 
 export const RINGTONE_MAP: Record<RingtoneOption, { label: string; file: string }> = {
@@ -67,6 +71,8 @@ export const useDashboardStore = create<DashboardState>((set) => ({
   userProfile: { name: "Bittu Kumar" },
   merchantStatus: "Online",
   settingsOpen: false,
+  profileSheetOpen: false,
+  profileSheetSection: "edit",
   notificationsOpen: false,
   notifications: [],
   activeModalOrderId: null,
@@ -80,6 +86,8 @@ export const useDashboardStore = create<DashboardState>((set) => ({
   setUserProfile: (userProfile) => set({ userProfile }),
   setMerchantStatus: (merchantStatus) => set({ merchantStatus }),
   setSettingsOpen: (settingsOpen) => set({ settingsOpen }),
+  setProfileSheetOpen: (profileSheetOpen, section = "edit") =>
+    set({ profileSheetOpen, profileSheetSection: section }),
   setNotificationsOpen: (notificationsOpen) => set({ notificationsOpen }),
   setNotifications: (notifications) => set({ notifications }),
   addNotification: (notification) =>
@@ -125,13 +133,6 @@ export const useDashboardStore = create<DashboardState>((set) => ({
         n.orderId === orderId ? { ...n, read: true } : n,
       ),
     })),
-  clearAll: () =>
-    set({
-      notifications: [],
-      minimizedOrderIds: [],
-      activeModalOrderId: null,
-      selectedOrderId: null,
-    }),
 }));
 
 if (typeof window !== "undefined") {

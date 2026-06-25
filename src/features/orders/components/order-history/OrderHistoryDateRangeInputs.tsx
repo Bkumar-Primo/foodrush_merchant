@@ -22,7 +22,7 @@ export function OrderHistoryDateRangeInputs({
         <span className="text-[9px] font-medium text-zinc-450 dark:text-zinc-500 uppercase tracking-wider block">
           Start Date
         </span>
-        <span className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+        <span className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
           {formatDisplayDate(customStartDate)}
         </span>
       </div>
@@ -30,7 +30,7 @@ export function OrderHistoryDateRangeInputs({
         <span className="text-[9px] font-medium text-zinc-450 dark:text-zinc-550 uppercase tracking-wider block">
           End Date
         </span>
-        <span className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+        <span className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
           {formatDisplayDate(customEndDate)}
         </span>
       </div>

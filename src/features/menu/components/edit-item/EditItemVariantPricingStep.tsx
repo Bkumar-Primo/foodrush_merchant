@@ -24,7 +24,7 @@ export function EditItemVariantPricingStep({
   return (
     <>
       <div className="flex items-center justify-between border-b border-zinc-100 pb-1.5">
-        <span className="text-[10px] font-semibold text-zinc-500 uppercase">Set Prices</span>
+        <span className="text-[10px] font-medium text-zinc-500 uppercase">Set Prices</span>
         <button
           type="button"
           onClick={() => setVariantStep(1)}
@@ -37,7 +37,9 @@ export function EditItemVariantPricingStep({
       <div className="space-y-4 max-h-64 overflow-y-auto pr-1">
         {variantProperties.map((prop) => (
           <div key={prop.id} className="space-y-2">
-            <span className="text-[10px] font-bold text-zinc-650 uppercase block">{prop.name}</span>
+            <span className="text-[10px] font-medium text-zinc-650 uppercase block">
+              {prop.name}
+            </span>
             <div className="space-y-1.5">
               {prop.options
                 .filter((o) => o.trim() !== "")
@@ -70,13 +72,13 @@ export function EditItemVariantPricingStep({
         <button
           type="button"
           onClick={() => setIsCreatingVariantInline(false)}
-          className="flex-1 py-2 border border-zinc-200 text-zinc-500 rounded-lg text-xs font-semibold text-center"
+          className="flex-1 py-2 border border-zinc-200 text-zinc-500 rounded-lg text-xs font-medium text-center"
         >
           Discard
         </button>
         <BrandButton
           onClick={handleSaveVariantsMultiple}
-          className="flex-1 py-2 font-semibold rounded-lg"
+          className="flex-1 py-2 font-medium rounded-lg"
         >
           Save Variants
         </BrandButton>

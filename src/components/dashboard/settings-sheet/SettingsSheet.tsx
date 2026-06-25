@@ -4,7 +4,8 @@ import { useState } from "react";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { useAudioChime } from "@/hooks/useAudioChime";
 import { useDashboardStore } from "@/stores/useDashboardStore";
-import { SettingsDangerZone } from "./SettingsDangerZone";
+import { SettingsAccount } from "./SettingsAccount";
+import { SettingsFirebaseStatus } from "./SettingsFirebaseStatus";
 import { SettingsOrderManagement } from "./SettingsOrderManagement";
 import { isRingtoneOption } from "./SettingsRingtonePicker";
 import { SettingsSheetHeader } from "./SettingsSheetHeader";
@@ -19,7 +20,6 @@ export function SettingsSheet(): React.JSX.Element {
     setSelectedRingtone,
     volume,
     setVolume,
-    clearAll,
   } = useDashboardStore();
 
   const [orderAlerts, setOrderAlerts] = useState(true);
@@ -64,7 +64,9 @@ export function SettingsSheet(): React.JSX.Element {
             onVolumeChange={setVolume}
           />
 
-          <SettingsDangerZone onResetComplete={clearAll} />
+          <SettingsFirebaseStatus />
+
+          <SettingsAccount />
         </div>
       </SheetContent>
     </Sheet>

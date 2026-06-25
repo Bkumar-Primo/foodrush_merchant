@@ -32,7 +32,7 @@ export const CustomerReviews: React.FC = () => {
       {/* Analytics Summary */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 border-b pb-6 border-zinc-200/60 dark:border-zinc-800">
         <div className="flex flex-col items-center justify-center p-4 rounded-xl bg-zinc-50/50 dark:bg-zinc-900/40 border border-zinc-200/40 dark:border-zinc-800/40">
-          <span className="text-4xl font-extrabold text-zinc-900 dark:text-white">
+          <span className="text-4xl font-medium text-zinc-900 dark:text-white">
             {averageRating}
           </span>
           <div className="flex gap-0.5 my-1.5">
@@ -55,7 +55,7 @@ export const CustomerReviews: React.FC = () => {
             const pct = totalReviews > 0 ? (count / totalReviews) * 100 : 0;
             return (
               <div key={stars} className="flex items-center gap-3 text-xs">
-                <span className="w-3 font-semibold text-zinc-700 dark:text-zinc-300">{stars}</span>
+                <span className="w-3 font-medium text-zinc-700 dark:text-zinc-300">{stars}</span>
                 <Star className="h-3 w-3 fill-amber-400 text-amber-400 shrink-0" />
                 <div className="flex-1 h-2 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
                   <div className="h-full bg-amber-400 rounded-full" style={{ width: `${pct}%` }} />
@@ -76,7 +76,7 @@ export const CustomerReviews: React.FC = () => {
           >
             <div className="flex items-center justify-between">
               <div>
-                <span className="font-bold text-zinc-950 dark:text-white text-xs">
+                <span className="font-medium text-zinc-950 dark:text-white text-xs">
                   {review.customerName}
                 </span>
                 <div className="flex items-center gap-1.5 mt-0.5">
@@ -94,7 +94,7 @@ export const CustomerReviews: React.FC = () => {
                 </div>
               </div>
               <span
-                className={`text-[10px] font-bold px-2 py-0.5 rounded border ${tokens.colors.border} bg-zinc-50/50 dark:bg-zinc-900/40 text-zinc-500`}
+                className={`text-[10px] font-medium px-2 py-0.5 rounded border ${tokens.colors.border} bg-zinc-50/50 dark:bg-zinc-900/40 text-zinc-500`}
               >
                 {review.orderedItems.join(", ")}
               </span>

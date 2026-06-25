@@ -1,0 +1,20 @@
+/** App-wide timing values in milliseconds or seconds. */
+export const TIMING = {
+  orderAcceptSeconds: 300,
+  splashMinMs: 4200,
+  splashExitMs: 450,
+  defaultPrepMinutes: 40,
+  handoverSeconds: 180,
+  riderArrivedDelaySeconds: 15,
+  dispatchToDeliveredMs: 120_000,
+  postAcceptDismissMs: 1500,
+  menuEditorToastMs: 3000,
+  urgentSimulatePastSeconds: 250,
+  needMoreTimeDefaultMinutes: 10,
+  needMoreTimeMinMinutes: 5,
+  needMoreTimeMaxMinutes: 60,
+  needMoreTimeStepMinutes: 5,
+  prepTimePickerMinMinutes: 5,
+  prepTimePickerMaxMinutes: 120,
+  prepTimePickerStepMinutes: 5,
+} as const;

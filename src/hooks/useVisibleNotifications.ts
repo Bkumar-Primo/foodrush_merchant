@@ -3,9 +3,10 @@
 import { useEffect, useMemo } from "react";
 import { useOrders } from "@/features/orders/hooks/useOrders";
 import { useNow } from "@/hooks/useNow";
+import { TIMING } from "@/lib/constants";
 import { type NotificationItem, useDashboardStore } from "@/stores/useDashboardStore";
 
-const ORDER_TIMEOUT_SECONDS = 300;
+const ORDER_TIMEOUT_SECONDS = TIMING.orderAcceptSeconds;
 
 function isNotificationVisible(
   item: NotificationItem,

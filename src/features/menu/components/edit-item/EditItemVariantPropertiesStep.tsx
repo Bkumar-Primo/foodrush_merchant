@@ -29,7 +29,7 @@ export function EditItemVariantPropertiesStep({
   return (
     <>
       <div className="flex items-center justify-between border-b border-zinc-100 pb-1.5">
-        <span className="text-[10px] font-semibold text-zinc-500 uppercase">Define Properties</span>
+        <span className="text-[10px] font-medium text-zinc-500 uppercase">Define Properties</span>
         <button
           type="button"
           onClick={() => setIsCreatingVariantInline(false)}
@@ -60,15 +60,13 @@ export function EditItemVariantPropertiesStep({
         className="border border-dashed border-zinc-200 dark:border-zinc-800 rounded-xl p-3 flex items-center justify-center gap-1.5 cursor-pointer hover:bg-zinc-50/50 w-full"
       >
         <Plus className={cn("h-3.5 w-3.5", tokens.colors.brand)} />
-        <span className={cn("text-[11px] font-semibold", tokens.colors.brand)}>
-          Add new property
-        </span>
+        <span className={cn("text-[11px] font-medium", tokens.colors.brand)}>Add new property</span>
       </button>
 
       <BrandButton
         fullWidth
         onClick={handleProceedToPricingMultiple}
-        className="py-2 font-semibold rounded-lg"
+        className="py-2 font-medium rounded-lg"
       >
         Enter prices and review
       </BrandButton>

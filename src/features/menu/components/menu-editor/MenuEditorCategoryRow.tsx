@@ -57,7 +57,7 @@ export function MenuEditorCategoryRow({
         className={cn(
           "flex items-center justify-between px-4 py-3 transition-all hover:bg-zinc-50 dark:hover:bg-zinc-955/55",
           isCategoryActive &&
-            cn("bg-blue-50/30 dark:bg-indigo-950/15 border-l-2", tokens.colors.brandBorder),
+            cn("bg-[#D4543C]/10 dark:bg-[#D4543C]/15 border-l-2", tokens.colors.brandBorder),
         )}
       >
         <button

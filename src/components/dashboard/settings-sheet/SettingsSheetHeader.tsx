@@ -1,14 +1,15 @@
 "use client";
 
 import { XIcon } from "lucide-react";
+import { SETTINGS_COPY } from "@/components/dashboard/constants";
 import { Button } from "@/components/ui/button";
 import { SheetClose, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 export function SettingsSheetHeader(): React.JSX.Element {
   return (
     <SheetHeader className="px-6 py-1 border-b border-zinc-100 dark:border-zinc-900 shrink-0 flex flex-row items-center justify-between">
-      <SheetTitle className="text-base font-extrabold text-zinc-900 dark:text-zinc-100">
-        Settings
+      <SheetTitle className="text-base font-medium text-zinc-900 dark:text-zinc-100">
+        {SETTINGS_COPY.title}
       </SheetTitle>
       <SheetClose asChild>
         <Button

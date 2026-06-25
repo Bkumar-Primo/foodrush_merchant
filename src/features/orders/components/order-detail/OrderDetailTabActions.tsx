@@ -58,7 +58,7 @@ export function OrderDetailTabActions({
         <BrandButton
           variant="orderOutline"
           onClick={onNeedMoreTime}
-          className="col-span-2 py-2.5 font-black text-center"
+          className="col-span-2 py-2.5 font-medium text-center"
         >
           Need more time
         </BrandButton>
@@ -66,7 +66,7 @@ export function OrderDetailTabActions({
           variant="danger"
           onClick={onReadyClick}
           disabled={isReadyLoading}
-          className="col-span-3 py-2.5 font-black text-center"
+          className="col-span-3 py-2.5 font-medium text-center"
         >
           Order ready
         </BrandButton>
@@ -79,9 +79,9 @@ export function OrderDetailTabActions({
       <div className="space-y-2.5 pt-1">
         {readyElapsedSecs <= 180 ? (
           <div>
-            <div className="flex items-center justify-between text-[11px] font-bold text-zinc-550 dark:text-zinc-400 mb-1.5">
+            <div className="flex items-center justify-between text-[11px] font-medium text-zinc-550 dark:text-zinc-400 mb-1.5">
               <span>Handover food in</span>
-              <span className="font-extrabold text-zinc-700 dark:text-zinc-300">
+              <span className="font-medium text-zinc-700 dark:text-zinc-300">
                 {formatCountdown(readyRemainingMins, readyRemainingSecsRem)} mins
               </span>
             </div>
@@ -94,7 +94,7 @@ export function OrderDetailTabActions({
           </div>
         ) : (
           <div className="space-y-1.5">
-            <p className="text-[11px] font-extrabold text-red-600 dark:text-red-400 text-center animate-pulse leading-snug">
+            <p className="text-[11px] font-medium text-red-600 dark:text-red-400 text-center animate-pulse leading-snug">
               Please handover food to delivery partner <br />( late by{" "}
               {formatCountdown(lateMins, lateSecsRem)} minutes )
             </p>

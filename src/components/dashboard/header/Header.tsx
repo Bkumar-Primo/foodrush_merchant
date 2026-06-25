@@ -6,20 +6,18 @@ import { useNow } from "@/hooks/useNow";
 import { getOrderTimeLeft, useVisibleNotifications } from "@/hooks/useVisibleNotifications";
 import { tokens } from "@/lib/utils/tokens";
 import { useDashboardStore } from "@/stores/useDashboardStore";
-import type { UserProfile } from "@/types";
 import { HeaderBrand } from "./HeaderBrand";
 import { HeaderIconButtons } from "./HeaderIconButtons";
 import { HeaderMerchantStatus } from "./HeaderMerchantStatus";
-import { HeaderProfilePill } from "./HeaderProfilePill";
+import { HeaderProfileMenu } from "./HeaderProfileMenu";
 import { HeaderThemeToggle } from "./HeaderThemeToggle";
 
 interface HeaderProps {
-  userProfile: UserProfile;
   theme: "light" | "dark";
   toggleTheme: () => void;
 }
 
-export function Header({ userProfile, theme, toggleTheme }: HeaderProps): React.JSX.Element {
+export function Header({ theme, toggleTheme }: HeaderProps): React.JSX.Element {
   const { merchantStatus, setMerchantStatus } = useDashboardStore();
   const { visibleNotifications } = useVisibleNotifications();
   const orders = useOrders();
@@ -76,7 +74,7 @@ export function Header({ userProfile, theme, toggleTheme }: HeaderProps): React.
           onGoOffline={() => setMerchantStatus("Offline")}
           onGoOnline={() => setMerchantStatus("Online")}
         />
-        <HeaderProfilePill userProfile={userProfile} />
+        <HeaderProfileMenu />
       </div>
     </header>
   );

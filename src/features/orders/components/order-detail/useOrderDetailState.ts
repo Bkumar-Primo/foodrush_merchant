@@ -12,7 +12,6 @@ import {
   getPrepTimers,
   getReadyTimers,
   getSimulatedRider,
-  isRiderArrived,
   type OrderBill,
   type OrderDietType,
   type SimulatedRider,
@@ -26,7 +25,7 @@ interface UseOrderDetailStateParams {
 }
 
 export interface UseOrderDetailStateResult {
-  rider: SimulatedRider;
+  rider: SimulatedRider | null;
   orderDietType: OrderDietType;
   bill: OrderBill;
   placedTimeDisplay: string;
@@ -39,7 +38,6 @@ export interface UseOrderDetailStateResult {
   handoverProgress: number;
   lateMins: number;
   lateSecsRem: number;
-  isRiderArrived: boolean;
   isReadyLoading: boolean;
   showNeedMoreTime: boolean;
   setShowNeedMoreTime: (show: boolean) => void;
@@ -59,14 +57,13 @@ export function useOrderDetailState({
   const [showNeedMoreTime, setShowNeedMoreTime] = useState(false);
   const [uniformFeedback, setUniformFeedback] = useState<UniformFeedback>(null);
 
-  const rider = useMemo(() => getSimulatedRider(order.id), [order.id]);
+  const rider = useMemo(() => getSimulatedRider(order), [order]);
   const orderDietType = useMemo(() => getOrderDietType(order.items), [order.items]);
   const bill = useMemo(() => calculateOrderBill(order.items), [order.items]);
   const placedTimeDisplay = getPlacedTimeDisplay(now, order.createdAt);
 
   const prepTimers = getPrepTimers(now, order);
   const readyTimers = getReadyTimers(now, order.updatedAt);
-  const riderArrived = isRiderArrived(now, order.createdAt);
 
   const handleReadyClick = async (): Promise<void> => {
     setIsReadyLoading(true);
@@ -96,7 +93,6 @@ export function useOrderDetailState({
     handoverProgress: readyTimers.handoverProgress,
     lateMins: readyTimers.lateMins,
     lateSecsRem: readyTimers.lateSecsRem,
-    isRiderArrived: riderArrived,
     isReadyLoading,
     showNeedMoreTime,
     setShowNeedMoreTime,

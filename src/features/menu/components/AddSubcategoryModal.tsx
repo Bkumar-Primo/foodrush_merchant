@@ -56,7 +56,7 @@ export const AddSubcategoryModal: React.FC<AddSubcategoryModalProps> = ({
             value={subName}
             onChange={(e) => setSubName(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="w-full rounded-lg border border-zinc-250 dark:border-zinc-750 bg-white dark:bg-zinc-955 px-3 py-2.5 text-xs text-zinc-800 dark:text-zinc-200 placeholder:text-zinc-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all"
+            className="w-full rounded-lg border border-zinc-250 dark:border-zinc-750 bg-white dark:bg-zinc-955 px-3 py-2.5 text-xs text-zinc-800 dark:text-zinc-200 placeholder:text-zinc-400 focus:outline-none focus:ring-1 focus:ring-primary transition-all"
           />
         </div>
 
@@ -64,7 +64,7 @@ export const AddSubcategoryModal: React.FC<AddSubcategoryModalProps> = ({
         <div className="flex items-center gap-3">
           <button
             onClick={onSkip}
-            className="flex-1 py-2 rounded-lg text-xs font-medium border border-[#2563EB] text-[#2563EB] hover:bg-blue-50/30 dark:hover:bg-blue-950/10 cursor-pointer text-center transition-all"
+            className="flex-1 py-2 rounded-lg text-xs font-medium border border-primary text-primary hover:bg-[#D4543C]/10 dark:hover:bg-[#D4543C]/15 cursor-pointer text-center transition-all"
           >
             Skip
           </button>
@@ -73,7 +73,7 @@ export const AddSubcategoryModal: React.FC<AddSubcategoryModalProps> = ({
             disabled={!subName.trim()}
             className={`flex-1 py-2 rounded-lg text-xs font-medium text-center transition-all cursor-pointer ${
               subName.trim()
-                ? "bg-[#2563EB] hover:bg-[#1D4ED8] text-white"
+                ? "bg-primary hover:bg-[#B8433A] text-primary-foreground"
                 : "bg-zinc-150 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-555 cursor-not-allowed"
             }`}
           >

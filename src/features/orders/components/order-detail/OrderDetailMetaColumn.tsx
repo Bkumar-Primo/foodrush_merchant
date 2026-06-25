@@ -13,7 +13,7 @@ function PrintButton({ label }: { label: string }): React.JSX.Element {
     <button
       type="button"
       className={cn(
-        "flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-colors",
+        "flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-medium cursor-pointer transition-colors",
         tokens.colors.orderActionBorder,
         tokens.colors.orderActionText,
         tokens.colors.orderActionOutlineHover,
@@ -32,7 +32,7 @@ export function OrderDetailMetaColumn({
     <div className="flex">
       <div className="flex-1 my-3">
         <div className="my-1 bg-[#D9CAF8] dark:bg-purple-950/20 flex items-center mx-3 rounded-[3px]">
-          <span className="text-[10px] font-semibold p-0.5 ml-1.5 text-[#765FAC]">
+          <span className="text-[10px] font-medium p-0.5 ml-1.5 text-[#765FAC]">
             FOODRUSH - DELIVERY
           </span>
         </div>
@@ -41,7 +41,7 @@ export function OrderDetailMetaColumn({
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
               <span className={cn(tokens.fontSizes.body, "text-zinc-900 dark:text-white")}>
-                ID: <span className="font-bold">{order.id.slice(-4)}</span>
+                ID: <span className="font-medium">{order.id.slice(-4)}</span>
               </span>
             </div>
 
@@ -61,7 +61,7 @@ export function OrderDetailMetaColumn({
                 className={cn(
                   "flex items-center gap-1 text-[12px] font-medium cursor-pointer",
                   tokens.colors.primaryText,
-                  "hover:text-blue-700",
+                  "hover:text-[#B8433A]",
                 )}
               >
                 <PhoneOutgoing className="h-3 w-3" /> Call
@@ -83,9 +83,9 @@ export function OrderDetailMetaColumn({
             <button
               type="button"
               className={cn(
-                "flex items-center gap-1 text-[11.5px] font-semibold cursor-pointer",
+                "flex items-center gap-1 text-[11.5px] font-medium cursor-pointer",
                 tokens.colors.primaryText,
-                "hover:text-blue-700",
+                "hover:text-[#B8433A]",
               )}
             >
               <Clock className="h-3 w-3" /> Timeline

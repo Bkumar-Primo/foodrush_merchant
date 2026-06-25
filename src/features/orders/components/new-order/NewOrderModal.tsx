@@ -35,7 +35,7 @@ export function NewOrderModal({
             <div className="flex flex-col shrink-0">
               <NewOrderModalBanner />
               {!modal.isAccepted && (
-                <NewOrderCustomerInfo order={order} isSimulatedLitti={billing.isSimulatedLitti} />
+                <NewOrderCustomerInfo order={order} />
               )}
             </div>
 

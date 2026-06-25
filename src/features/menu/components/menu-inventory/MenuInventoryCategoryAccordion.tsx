@@ -25,7 +25,7 @@ export function MenuInventoryCategoryAccordion({
   return (
     <div className="border border-zinc-200 dark:border-zinc-850 rounded-xl overflow-hidden bg-white dark:bg-zinc-900 shadow-xs">
       <div className="flex items-center justify-between p-4 bg-zinc-50/50 dark:bg-zinc-900/50 border-b border-zinc-100 dark:border-zinc-850/60">
-        <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200">
+        <span className="text-xs font-medium text-zinc-800 dark:text-zinc-200">
           {category} ({items.length})
         </span>
 

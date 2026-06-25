@@ -35,9 +35,7 @@ export function EditItemAddonGroupModal({
     <div className="absolute inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-6 select-none animate-in fade-in duration-100">
       <div className="w-full max-w-[450px] bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl border border-zinc-200 dark:border-zinc-800 flex flex-col p-5 space-y-4 max-h-[85%] overflow-y-auto animate-in zoom-in-95 duration-100">
         <div className="flex items-center justify-between shrink-0">
-          <h3 className="text-sm font-semibold text-zinc-900 dark:text-white">
-            Create Addon Group
-          </h3>
+          <h3 className="text-sm font-medium text-zinc-900 dark:text-white">Create Addon Group</h3>
           <button
             type="button"
             onClick={() => setShowAddAddonGroupModal(false)}
@@ -118,7 +116,7 @@ export function EditItemAddonGroupModal({
             !newAddonGroupName.trim() ||
             newAddonGroupOptionsText.filter((o) => o.trim() !== "").length === 0
           }
-          className="py-2.5 font-semibold rounded-lg shadow-xs disabled:opacity-40 shrink-0"
+          className="py-2.5 font-medium rounded-lg shadow-xs disabled:opacity-40 shrink-0"
         >
           Create & Select Group
         </BrandButton>

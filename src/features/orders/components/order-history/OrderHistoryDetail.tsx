@@ -25,14 +25,14 @@ export function OrderHistoryDetail({ order }: OrderHistoryDetailProps): React.JS
   return (
     <div className="flex flex-col h-full overflow-y-auto bg-white dark:bg-zinc-900">
       <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-100 dark:border-zinc-800 shrink-0">
-        <span className="text-sm font-bold text-zinc-900 dark:text-white">ID: {order.id}</span>
+        <span className="text-sm font-medium text-zinc-900 dark:text-white">ID: {order.id}</span>
         <div className="flex items-center gap-3">
           <span className="text-[11px] text-zinc-500">
             {formatHistoryTime(ts)} | {formatHistoryDate(ts)}
           </span>
           <button
             type="button"
-            className="flex items-center gap-1 px-2.5 py-1 border border-blue-500 rounded text-blue-600 text-[11px] font-semibold hover:bg-blue-50 dark:hover:bg-blue-950/20 cursor-pointer"
+            className="flex items-center gap-1 px-2.5 py-1 border border-primary rounded text-primary text-[11px] font-medium hover:bg-[#D4543C]/10 dark:hover:bg-[#D4543C]/15 cursor-pointer"
           >
             Help
           </button>
@@ -43,7 +43,7 @@ export function OrderHistoryDetail({ order }: OrderHistoryDetailProps): React.JS
         <div>
           <div className="flex items-center justify-between gap-2 mb-2">
             <OrderHistoryStatusBadge status={order.status} />
-            <span className="text-xs text-zinc-650 dark:text-zinc-400 font-semibold">
+            <span className="text-xs text-zinc-650 dark:text-zinc-400 font-medium">
               {getCustomerOrderCount(order)} orders by {order.customerName}
             </span>
           </div>

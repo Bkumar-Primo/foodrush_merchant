@@ -33,7 +33,7 @@ export function EditItemVariantPropertyCard({
             type="text"
             value={prop.name}
             onChange={(e) => onNameChange(prop.id, e.target.value)}
-            className="text-xs font-semibold text-zinc-850 dark:text-zinc-200 bg-transparent border-b border-transparent hover:border-zinc-300 focus:border-indigo-500 focus:outline-none w-36"
+            className="text-xs font-medium text-zinc-850 dark:text-zinc-200 bg-transparent border-b border-transparent hover:border-zinc-300 focus:border-primary focus:outline-none w-36"
           />
         </div>
         {canRemove && (
@@ -76,7 +76,7 @@ export function EditItemVariantPropertyCard({
         type="button"
         onClick={() => onAddOption(prop.id)}
         className={cn(
-          "text-[10px] font-semibold hover:underline flex items-center gap-0.5",
+          "text-[10px] font-medium hover:underline flex items-center gap-0.5",
           tokens.colors.brand,
         )}
       >

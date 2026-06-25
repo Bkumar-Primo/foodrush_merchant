@@ -1,3 +1,5 @@
+import { ORDER_REJECTION_REASONS, ORDER_TIMELINE_LABELS } from "@/features/orders/constants";
+import { getRiderForOrder } from "@/lib/rider";
 import type { Order } from "@/types";
 
 export interface TimelineStep {
@@ -7,16 +9,10 @@ export interface TimelineStep {
   showView?: boolean;
 }
 
-const MOCK_RIDERS = [
-  { name: "Basavaraj", avatar: "/images/avatar.png" },
-  { name: "Chandan", avatar: "/images/avatar.png" },
-  { name: "Vishwanatha", avatar: "/images/avatar.png" },
-  { name: "Rahul", avatar: "/images/avatar.png" },
-];
-
-export function getSimulatedRider(orderId: string) {
-  const hash = orderId.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
-  return MOCK_RIDERS[hash % MOCK_RIDERS.length];
+export function getSimulatedRider(order: Order) {
+  const rider = getRiderForOrder(order);
+  if (!rider) return null;
+  return { name: rider.name, avatar: rider.avatar };
 }
 
 export function getSimulatedRating(orderId: string): number | null {
@@ -64,9 +60,8 @@ export function getBillTotal(order: Order) {
 }
 
 export function getRejectionReason(order: Order) {
-  const reasons = ["Rejected by customer", "Item unavailable", "Kitchen closed"];
   const hash = order.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
-  return reasons[hash % reasons.length];
+  return ORDER_REJECTION_REASONS[hash % ORDER_REJECTION_REASONS.length];
 }
 
 export function buildTimeline(order: Order): TimelineStep[] {
@@ -79,23 +74,23 @@ export function buildTimeline(order: Order): TimelineStep[] {
 
   if (order.status === "rejected") {
     return [
-      { key: "placed", label: "Placed", timestamp: placed },
-      { key: "rejected", label: "Rejected", timestamp: order.updatedAt },
+      { key: "placed", label: ORDER_TIMELINE_LABELS.placed, timestamp: placed },
+      { key: "rejected", label: ORDER_TIMELINE_LABELS.rejected, timestamp: order.updatedAt },
     ];
   }
 
   return [
-    { key: "placed", label: "Placed", timestamp: placed },
+    { key: "placed", label: ORDER_TIMELINE_LABELS.placed, timestamp: placed },
     {
       key: "accepted",
-      label: "Accepted",
+      label: ORDER_TIMELINE_LABELS.accepted,
       timestamp: prepStart,
       showView: true,
     },
-    { key: "arrived", label: "Delivery partner arrived", timestamp: arrived },
-    { key: "ready", label: "Ready", timestamp: ready, showView: true },
-    { key: "picked", label: "Picked up", timestamp: pickedUp },
-    { key: "delivered", label: "Delivered", timestamp: delivered },
+    { key: "arrived", label: ORDER_TIMELINE_LABELS.arrived, timestamp: arrived },
+    { key: "ready", label: ORDER_TIMELINE_LABELS.ready, timestamp: ready, showView: true },
+    { key: "picked", label: ORDER_TIMELINE_LABELS.picked, timestamp: pickedUp },
+    { key: "delivered", label: ORDER_TIMELINE_LABELS.delivered, timestamp: delivered },
   ];
 }
 

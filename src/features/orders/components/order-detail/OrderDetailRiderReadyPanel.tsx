@@ -30,7 +30,7 @@ export function ReadyRiderPanel({
         variant="brand"
         fullWidth
         onClick={() => onDispatch(orderId)}
-        className="mt-3 py-1.5 text-[10.5px] font-black shadow-xs"
+        className="mt-3 py-1.5 text-[10.5px] font-medium shadow-xs"
       >
         Handover Food
       </BrandButton>

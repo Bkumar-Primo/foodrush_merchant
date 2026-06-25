@@ -25,7 +25,7 @@ export function OrderHistoryCalendarGrid({
     <>
       <div className="grid grid-cols-7 gap-y-1 text-center">
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-          <span key={day} className="text-[9px] font-bold text-zinc-400">
+          <span key={day} className="text-[9px] font-medium text-zinc-400">
             {day}
           </span>
         ))}
@@ -48,17 +48,17 @@ export function OrderHistoryCalendarGrid({
               onClick={() => onCellClick(cell.date)}
               className={`flex items-center justify-center p-1 cursor-pointer select-none text-[10px] relative ${
                 cell.isCurrentMonth
-                  ? "text-zinc-800 dark:text-zinc-200 font-semibold"
+                  ? "text-zinc-800 dark:text-zinc-200 font-medium"
                   : "text-zinc-350 dark:text-zinc-650"
               }`}
             >
               {isInRange && !isSelectedStart && !isSelectedEnd && (
-                <div className="absolute inset-y-0.5 inset-x-0 bg-blue-50/50 dark:bg-indigo-950/20" />
+                <div className="absolute inset-y-0.5 inset-x-0 bg-[#D4543C]/10 dark:bg-[#D4543C]/15" />
               )}
               <span
                 className={`h-6 w-6 flex items-center justify-center rounded-full transition-all relative z-10 ${
                   isSelectedStart || isSelectedEnd
-                    ? `${tokens.colors.brandBg} text-white font-bold`
+                    ? `${tokens.colors.brandBg} text-white font-medium`
                     : cell.isCurrentMonth
                       ? "hover:bg-zinc-100 dark:hover:bg-zinc-800"
                       : ""

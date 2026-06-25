@@ -32,7 +32,7 @@ export function OrderHistoryListItem({
         onClick={onSelect}
         className={`w-full text-left p-4 rounded-xl border transition-all cursor-pointer shadow-xs hover:shadow-md ${
           isSelected
-            ? "bg-[#EBF4FF] dark:bg-blue-950/30 border-blue-250 dark:border-blue-800"
+            ? "bg-[#F4E8E4] dark:bg-[#D4543C]/15 border-[#F4A99A] dark:border-[#D4543C]/40"
             : "bg-white dark:bg-zinc-900 border-zinc-150 dark:border-zinc-800 hover:border-zinc-250 dark:hover:border-zinc-700"
         }`}
       >
@@ -49,7 +49,9 @@ export function OrderHistoryListItem({
         </div>
 
         <div className="flex items-center justify-between gap-2 mb-2">
-          <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200">ID: {order.id}</span>
+          <span className="text-xs font-medium text-zinc-800 dark:text-zinc-200">
+            ID: {order.id}
+          </span>
           <span className="text-[11px] text-zinc-500 dark:text-zinc-450 font-medium">
             By {order.customerName}
           </span>
@@ -59,7 +61,7 @@ export function OrderHistoryListItem({
           <p className="text-[11px] text-zinc-500 dark:text-zinc-400 line-clamp-2 leading-relaxed flex-1">
             {getItemsSummary(order)}
           </p>
-          <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 shrink-0">
+          <span className="text-xs font-medium text-zinc-800 dark:text-zinc-200 shrink-0">
             ₹{billTotal.toFixed(2)}
           </span>
         </div>

@@ -1,12 +1,5 @@
 import type { Order, OrderItem } from "@/types";
-
-const MOCK_RIDERS = [
-  { name: "Chandan", avatar: "/images/avatar.png" },
-  { name: "Vishwanatha", avatar: "/images/avatar.png" },
-  { name: "Rahul", avatar: "/images/avatar.png" },
-  { name: "Suresh", avatar: "/images/avatar.png" },
-  { name: "Amit", avatar: "/images/avatar.png" },
-] as const;
+import { getRiderForOrder } from "@/lib/rider";
 
 const NON_VEG_KEYWORDS = ["chicken", "omelette", "egg", "mutton", "fish", "kebab"] as const;
 
@@ -24,13 +17,10 @@ export interface OrderBill {
   final: number;
 }
 
-export function getSimulatedRider(orderId: string): SimulatedRider {
-  const hash = orderId.split("").reduce((accumulator, character) => {
-    return accumulator + character.charCodeAt(0);
-  }, 0);
-  const rider = MOCK_RIDERS[hash % MOCK_RIDERS.length];
-  const otp = 1000 + (hash % 9000);
-  return { name: rider.name, avatar: rider.avatar, otp };
+export function getSimulatedRider(order: Order): SimulatedRider | null {
+  const rider = getRiderForOrder(order);
+  if (!rider) return null;
+  return { name: rider.name, avatar: rider.avatar, otp: rider.otp };
 }
 
 export function formatCountdown(mins: number, secs: number): string {

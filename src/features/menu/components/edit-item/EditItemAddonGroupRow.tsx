@@ -42,10 +42,10 @@ export function EditItemAddonGroupRow({
             type="checkbox"
             checked={isChecked}
             onChange={() => {}}
-            className="mt-1 h-3.5 w-3.5 text-indigo-650 focus:ring-indigo-500 border-zinc-300 rounded cursor-pointer"
+            className="mt-1 h-3.5 w-3.5 text-primary focus:ring-primary border-zinc-300 rounded cursor-pointer"
           />
           <div className="text-left">
-            <span className="text-xs font-semibold text-zinc-800 dark:text-zinc-200 group-hover:text-[#2563EB]">
+            <span className="text-xs font-medium text-zinc-800 dark:text-zinc-200 group-hover:text-primary">
               {group.name}
             </span>
             <span className="text-[9px] text-zinc-400 block font-medium">
@@ -57,7 +57,7 @@ export function EditItemAddonGroupRow({
         <button
           type="button"
           onClick={() => setEditingAddonGroupId(isEditingOptions ? null : group.id)}
-          className="text-[10px] font-semibold text-indigo-650 hover:underline shrink-0"
+          className="text-[10px] font-medium text-primary hover:underline shrink-0"
         >
           {isEditingOptions ? "Done" : "Customize"}
         </button>
@@ -65,7 +65,7 @@ export function EditItemAddonGroupRow({
 
       {isEditingOptions && (
         <div className="mt-2.5 p-3 rounded-lg border border-zinc-200 bg-white space-y-2.5">
-          <span className="text-[9px] font-bold text-zinc-455 uppercase block">
+          <span className="text-[9px] font-medium text-zinc-455 uppercase block">
             Customise options
           </span>
 

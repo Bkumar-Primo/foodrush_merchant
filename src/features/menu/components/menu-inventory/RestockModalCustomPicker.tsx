@@ -44,10 +44,10 @@ export function RestockModalCustomPicker({
                   : "border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/30"
               }`}
             >
-              <span className="text-[9px] font-semibold text-zinc-450 dark:text-zinc-550">
+              <span className="text-[9px] font-medium text-zinc-450 dark:text-zinc-550">
                 {day.dayName}
               </span>
-              <span className="text-xs font-bold leading-tight">{day.dayNum}</span>
+              <span className="text-xs font-medium leading-tight">{day.dayNum}</span>
               <span className="text-[8px] font-medium text-zinc-400">{day.monthName}</span>
             </div>
           ))}
@@ -83,7 +83,7 @@ export function RestockModalCustomPicker({
             />
           </div>
 
-          <span className="text-zinc-400 font-bold">:</span>
+          <span className="text-zinc-400 font-medium">:</span>
 
           <div className="flex-1">
             <TextField
@@ -111,7 +111,7 @@ export function RestockModalCustomPicker({
             />
           </div>
 
-          <div className="flex rounded-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden h-[29px] shrink-0 font-semibold text-xs">
+          <div className="flex rounded-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden h-[29px] shrink-0 font-medium text-xs">
             {(["AM", "PM"] as const).map((period) => (
               <button
                 key={period}
