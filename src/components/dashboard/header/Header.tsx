@@ -1,9 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useMerchantFirestoreSync } from "@/hooks/useMerchantFirestoreSync";
 import { useOrders } from "@/features/orders/hooks/useOrders";
 import { useNow } from "@/hooks/useNow";
 import { getOrderTimeLeft, useVisibleNotifications } from "@/hooks/useVisibleNotifications";
+import { updateMerchantStatus } from "@/lib/db/merchant";
+import { getFirestoreDb } from "@/lib/db/firebaseClient";
 import { tokens } from "@/lib/utils/tokens";
 import { useDashboardStore } from "@/stores/useDashboardStore";
 import { HeaderBrand } from "./HeaderBrand";
@@ -23,37 +26,55 @@ export function Header({ theme, toggleTheme }: HeaderProps): React.JSX.Element {
   const orders = useOrders();
   const now = useNow();
 
-  const [showOfflineConfirm, setShowOfflineConfirm] = useState(false);
-  const [showOngoingOfflineWarning, setShowOngoingOfflineWarning] = useState(false);
+  useMerchantFirestoreSync();
 
-  const ongoingOrders = useMemo(
+  const [showOfflineConfirm, setShowOfflineConfirm] = useState(false);
+  const [showPendingOfflineWarning, setShowPendingOfflineWarning] = useState(false);
+  const [showFulfillmentOfflineWarning, setShowFulfillmentOfflineWarning] =
+    useState(false);
+
+  const pendingOrders = useMemo(
+    () => orders.filter((order) => order.status === "placed"),
+    [orders],
+  );
+
+  const fulfillmentOrders = useMemo(
     () =>
-      orders.filter(
-        (o) =>
-          o.status === "placed" ||
-          o.status === "preparing" ||
-          o.status === "ready_for_pickup" ||
-          o.status === "dispatched",
+      orders.filter((order) =>
+        ["preparing", "ready_for_pickup", "dispatched"].includes(order.status),
       ),
     [orders],
   );
 
-  const hasOngoing = ongoingOrders.length > 0;
+  const hasPendingOrders = pendingOrders.length > 0;
+  const hasFulfillmentOrders = fulfillmentOrders.length > 0;
 
   const hasUnread = useMemo(
-    () => visibleNotifications.some((n) => !n.read),
+    () => visibleNotifications.some((notification) => !notification.read),
     [visibleNotifications],
   );
 
   const isUrgent = useMemo(() => {
-    return visibleNotifications.some((n) => {
-      if (n.read || !n.orderId) return false;
-      const order = orders.find((o) => o.id === n.orderId);
+    return visibleNotifications.some((notification) => {
+      if (notification.read || !notification.orderId) return false;
+      const order = orders.find((entry) => entry.id === notification.orderId);
       if (order?.status !== "placed") return false;
       const timeLeft = getOrderTimeLeft(order.createdAt, now);
       return timeLeft > 0 && timeLeft < 60;
     });
   }, [visibleNotifications, orders, now]);
+
+  async function persistMerchantStatus(status: typeof merchantStatus) {
+    setMerchantStatus(status);
+    if (!getFirestoreDb()) {
+      return;
+    }
+    try {
+      await updateMerchantStatus(status);
+    } catch (error) {
+      console.error("[Merchant] Failed to update status.", error);
+    }
+  }
 
   return (
     <header
@@ -66,13 +87,16 @@ export function Header({ theme, toggleTheme }: HeaderProps): React.JSX.Element {
         <HeaderThemeToggle theme={theme} toggleTheme={toggleTheme} />
         <HeaderMerchantStatus
           merchantStatus={merchantStatus}
-          hasOngoing={hasOngoing}
+          hasPendingOrders={hasPendingOrders}
+          hasFulfillmentOrders={hasFulfillmentOrders}
           showOfflineConfirm={showOfflineConfirm}
-          showOngoingOfflineWarning={showOngoingOfflineWarning}
+          showPendingOfflineWarning={showPendingOfflineWarning}
+          showFulfillmentOfflineWarning={showFulfillmentOfflineWarning}
           onShowOfflineConfirm={setShowOfflineConfirm}
-          onShowOngoingOfflineWarning={setShowOngoingOfflineWarning}
-          onGoOffline={() => setMerchantStatus("Offline")}
-          onGoOnline={() => setMerchantStatus("Online")}
+          onShowPendingOfflineWarning={setShowPendingOfflineWarning}
+          onShowFulfillmentOfflineWarning={setShowFulfillmentOfflineWarning}
+          onGoOffline={() => void persistMerchantStatus("Offline")}
+          onGoOnline={() => void persistMerchantStatus("Online")}
         />
         <HeaderProfileMenu />
       </div>

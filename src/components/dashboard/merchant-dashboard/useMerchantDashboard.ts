@@ -20,6 +20,8 @@ import {
   RESTAURANT_COORDS,
   riderEnRouteToRestaurant,
 } from "@/lib/rider";
+import { getFirestoreDb } from "@/lib/db/firebaseClient";
+import { updateMerchantStatus } from "@/lib/db/merchant";
 import { useDashboardStore } from "@/stores/useDashboardStore";
 import type { MenuItem, Order, TempAddonGroup } from "@/types";
 import { DEFAULT_ADDON_GROUPS } from "./defaultAddonGroups";
@@ -201,6 +203,11 @@ export function useMerchantDashboard() {
   const handleGoOnline = () => {
     setMerchantStatus("Online");
     setShowOnlineAlert(false);
+    if (getFirestoreDb()) {
+      void updateMerchantStatus("Online").catch((error) => {
+        console.error("[Merchant] Failed to go online.", error);
+      });
+    }
   };
 
   return {

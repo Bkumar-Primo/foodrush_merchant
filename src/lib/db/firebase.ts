@@ -11,6 +11,7 @@ import {
 import type { MenuItem, Order } from "@/types";
 import { FIRESTORE_COLLECTIONS } from "./collections";
 import { getFirestoreDb } from "./firebaseClient";
+import { ensureMerchantDocument } from "./merchant";
 import { stripUndefinedForFirestore } from "./firestoreData";
 import { generateInventorySeedData } from "./inventorySeedData";
 import { replaceFirestoreInventory, seedFirestoreInventory } from "./seedFirestore";
@@ -193,6 +194,7 @@ export const initializeFirestoreData = async (): Promise<void> => {
     return;
   }
   await seedFirestoreInventory([...SEED_INVENTORY]);
+  await ensureMerchantDocument();
 };
 
 /** Deletes all inventory and writes the full seed catalog. */
