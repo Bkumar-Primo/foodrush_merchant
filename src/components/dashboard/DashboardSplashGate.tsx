@@ -1,11 +1,20 @@
 "use client";
 
-import { type ReactNode, useEffect, useState } from "react";
-import { SPLASH_DOM_IDS, SPLASH_TIMING, STORAGE_KEYS } from "@/lib/constants";
+import { type ReactNode, useEffect, useLayoutEffect, useState } from "react";
+import {
+  ensureSplashBootstrap,
+  markSplashSeen,
+  releaseSplashShell,
+  SPLASH_DOM_IDS,
+  SPLASH_TIMING,
+  STORAGE_KEYS,
+} from "@/lib/constants";
 
 interface DashboardSplashGateProps {
   children: ReactNode;
 }
+
+type SplashPhase = "splash" | "ready";
 
 function hasSeenSplashThisSession(): boolean {
   try {
@@ -15,45 +24,38 @@ function hasSeenSplashThisSession(): boolean {
   }
 }
 
-function isSplashBlocking(): boolean {
-  return document.getElementById(SPLASH_DOM_IDS.blockStyle) !== null;
-}
-
-function clearSplashBlock(): void {
-  document.getElementById(SPLASH_DOM_IDS.blockStyle)?.remove();
-}
-
 function getSplashFallback(): HTMLElement | null {
   return document.getElementById(SPLASH_DOM_IDS.fallback);
 }
 
 export function DashboardSplashGate({ children }: DashboardSplashGateProps): React.ReactNode {
-  const [showContent, setShowContent] = useState(false);
+  // Keep SSR and first client render identical — never read sessionStorage here.
+  const [phase, setPhase] = useState<SplashPhase>("splash");
+
+  useLayoutEffect(() => {
+    if (!hasSeenSplashThisSession()) return;
+    releaseSplashShell();
+    setPhase("ready");
+  }, []);
 
   useEffect(() => {
-    const fallback = getSplashFallback();
-
-    if (hasSeenSplashThisSession() || !isSplashBlocking()) {
-      clearSplashBlock();
-      fallback?.remove();
-      setShowContent(true);
+    if (hasSeenSplashThisSession()) {
+      releaseSplashShell();
+      setPhase("ready");
       return;
     }
+
+    ensureSplashBootstrap();
 
     let exitTimer: number | undefined;
 
     const minTimer = window.setTimeout(() => {
-      fallback?.classList.add("splash-overlay-exit");
+      markSplashSeen();
+      getSplashFallback()?.classList.add("splash-overlay-exit");
 
       exitTimer = window.setTimeout(() => {
-        try {
-          sessionStorage.setItem(STORAGE_KEYS.splashSeen, "1");
-        } catch {
-          // ignore private browsing quota errors
-        }
-        clearSplashBlock();
-        fallback?.remove();
-        setShowContent(true);
+        releaseSplashShell();
+        setPhase("ready");
       }, SPLASH_TIMING.exitMs);
     }, SPLASH_TIMING.minMs);
 
@@ -65,7 +67,7 @@ export function DashboardSplashGate({ children }: DashboardSplashGateProps): Rea
     };
   }, []);
 
-  if (!showContent) {
+  if (phase !== "ready") {
     return null;
   }
 

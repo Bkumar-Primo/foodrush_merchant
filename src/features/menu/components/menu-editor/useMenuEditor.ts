@@ -3,6 +3,11 @@ import { TIMING } from "@/lib/constants";
 import { deleteInventoryItem } from "@/lib/db";
 import type { MenuItem } from "@/types";
 import {
+  FALLBACK_MENU_CATEGORY,
+  getDefaultMenuCategory,
+  getMenuCategoriesFromInventory,
+} from "../../constants";
+import {
   DEFAULT_MENU_FILTERS,
   filterMenuItems,
   hasActiveFilters,
@@ -10,14 +15,6 @@ import {
   matchesAddonSearch,
 } from "../../utils/menuFilters";
 import type { EditorView, MenuEditorProps, SubTab, ToastMessage } from "./types";
-
-const DEFAULT_CATEGORIES = [
-  "Litti Chokha",
-  "Vada Pav",
-  "Bread",
-  "Meals And Combos",
-  "Today's Special",
-] as const;
 
 export function useMenuEditor({
   inventory,
@@ -30,9 +27,9 @@ export function useMenuEditor({
   const [menuFilters, setMenuFilters] = useState<MenuFilters>(DEFAULT_MENU_FILTERS);
   const [showFilterPanel, setShowFilterPanel] = useState(false);
   const filterPanelRef = useRef<HTMLDivElement>(null);
-  const [selectedCategory, setSelectedCategory] = useState("Litti Chokha");
+  const [selectedCategory, setSelectedCategory] = useState(FALLBACK_MENU_CATEGORY);
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
-  const [expandedCategories, setExpandedCategories] = useState<string[]>(["Litti Chokha"]);
+  const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
   const [customCategories, setCustomCategories] = useState<string[]>([]);
   const [customSubcategories, setCustomSubcategories] = useState<Record<string, string[]>>({});
   const [isAddCatOpen, setIsAddCatOpen] = useState(false);
@@ -54,14 +51,24 @@ export function useMenuEditor({
   const [isCreatingGlobalGroup, setIsCreatingGlobalGroup] = useState(false);
 
   const categoriesList = useMemo(() => {
-    const list = new Set<string>();
-    for (const item of inventory) {
-      if (item.category) list.add(item.category);
-    }
+    const list = new Set<string>(getMenuCategoriesFromInventory(inventory));
     for (const cat of customCategories) list.add(cat);
-    for (const cat of DEFAULT_CATEGORIES) list.add(cat);
     return Array.from(list);
   }, [inventory, customCategories]);
+
+  useEffect(() => {
+    const categories = getMenuCategoriesFromInventory(inventory);
+    if (categories.length === 0) return;
+
+    const firstCategory = categories[0];
+    setSelectedCategory((prev) => (categories.includes(prev) ? prev : firstCategory));
+    setExpandedCategories((prev) => {
+      if (prev.length === 0 || !prev.some((category) => categories.includes(category))) {
+        return [firstCategory];
+      }
+      return prev;
+    });
+  }, [inventory]);
 
   const filteredInventory = useMemo(
     () => filterMenuItems(inventory, searchQuery, menuFilters),
@@ -170,7 +177,7 @@ export function useMenuEditor({
     for (const item of itemsToDelete) {
       await deleteInventoryItem(item.id);
     }
-    const nextCat = categoriesList.find((c) => c !== catName) ?? "Litti Chokha";
+    const nextCat = categoriesList.find((c) => c !== catName) ?? getDefaultMenuCategory(inventory);
     setSelectedCategory(nextCat);
     setSelectedSubcategory(null);
   };

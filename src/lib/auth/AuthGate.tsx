@@ -2,14 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { type ReactNode, useEffect } from "react";
+import { Spinner } from "@/components/ui/spinner";
 import { useAuth } from "@/lib/auth/AuthProvider";
-import { BRAND } from "@/lib/constants";
 
 interface AuthGateProps {
   children: ReactNode;
 }
 
-export function AuthGate({ children }: AuthGateProps): React.JSX.Element | null {
+export function AuthGate({ children }: AuthGateProps): React.JSX.Element {
   const { user, loading } = useAuth();
   const router = useRouter();
 
@@ -19,16 +19,12 @@ export function AuthGate({ children }: AuthGateProps): React.JSX.Element | null 
     }
   }, [loading, user, router]);
 
-  if (loading) {
+  if (loading || !user) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#F7F3EE]">
-        <p className="text-sm font-medium text-zinc-600">{BRAND.loadingLabel}</p>
+        <Spinner className="size-8 text-primary" />
       </div>
     );
-  }
-
-  if (!user) {
-    return null;
   }
 
   return <>{children}</>;

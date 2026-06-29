@@ -12,6 +12,7 @@ import type {
   VariantStep,
   VariantTemplate,
 } from "./types";
+import { FALLBACK_MENU_CATEGORY } from "../../constants";
 
 const SUGGESTED_SEARCHES = [
   "chicken",
@@ -199,7 +200,7 @@ export function useEditItemForm({
       setPrice(0);
       setFoodType("veg");
       setServiceType("Delivery");
-      setCategory(categories[0] || "Litti Chokha");
+      setCategory(categories[0] || FALLBACK_MENU_CATEGORY);
       setSubcategory("");
       setIsCreatingNewSubcategory(false);
       setImage("");

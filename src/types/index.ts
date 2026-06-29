@@ -76,8 +76,8 @@ export interface MenuItem {
   price: number; // base price
   foodType: "veg" | "non-veg" | "egg"; // Food Type selection pills
   serviceType: ServiceType | string; // Service Type (e.g., "Delivery")
-  category: string; // Menu Category (e.g., "Litti Chokha")
-  subcategory?: string; // Subcategory (e.g., "Litti Chokha")
+  category: string; // Menu Category (e.g., "Punjabi Breakfast")
+  subcategory?: string; // Subcategory (e.g., "Morning Favorites")
   inStock: boolean; // Availability state
   image: string; // Item Photos (URL, placeholder, or Emoji)
   packagingCharge?: number; // Packaging charges amount

@@ -29,14 +29,14 @@ import { SIMULATE_ORDER_SCENARIOS } from "@/components/dashboard/merchant-dashbo
 import type { Order, OrderStatus } from "@/types";
 
 const MENU_ITEMS_PRESETS = [
-  { id: "item_litti_1", name: "Litti Chokha with Ghee", price: 139, emoji: "🫓", type: "veg" },
-  { id: "item_litti_2", name: "Crispy Tawa Fried Litti", price: 179, emoji: "🥟", type: "veg" },
-  { id: "item_vp_1", name: "Classic Mumbai Vada Pav", price: 50, emoji: "🍔", type: "veg" },
+  { id: "item_001", name: "Aloo Paratha with Curd", price: 89, emoji: "🫓", type: "veg" },
+  { id: "item_077", name: "Butter Chicken", price: 229, emoji: "🍗", type: "non-veg" },
+  { id: "item_043", name: "Paneer Butter Masala", price: 199, emoji: "🧀", type: "veg" },
   {
-    id: "item_ts_1",
-    name: "Bihari Chicken Curry with Phulka",
-    price: 249,
-    emoji: "🍛",
+    id: "item_132",
+    name: "Chicken Dum Biryani",
+    price: 269,
+    emoji: "🍚",
     type: "non-veg",
   },
 ];
