@@ -3,7 +3,6 @@
 import { Suspense } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import { DashboardLayoutClient } from "@/components/dashboard/DashboardLayoutClient";
-import { DashboardSplashGate } from "@/components/dashboard/DashboardSplashGate";
 import { AuthGate } from "@/lib/auth";
 
 interface DashboardLayoutClientShellProps {
@@ -21,13 +20,11 @@ export function DashboardLayoutClientShell({
         </div>
       }
     >
-      <DashboardSplashGate>
-        <AuthGate>
-          <div data-dashboard-shell className="contents">
-            <DashboardLayoutClient>{children}</DashboardLayoutClient>
-          </div>
-        </AuthGate>
-      </DashboardSplashGate>
+      <AuthGate>
+        <div data-dashboard-shell className="contents">
+          <DashboardLayoutClient>{children}</DashboardLayoutClient>
+        </div>
+      </AuthGate>
     </Suspense>
   );
 }

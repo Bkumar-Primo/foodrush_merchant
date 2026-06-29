@@ -4,7 +4,7 @@ import { type ReactNode, useEffect, useLayoutEffect, useState } from "react";
 import { FoodRushSplash } from "@/components/common/FoodRushSplash";
 import { markSplashSeen, SPLASH_TIMING, STORAGE_KEYS } from "@/lib/constants";
 
-interface DashboardSplashGateProps {
+interface AppSplashGateProps {
   children: ReactNode;
 }
 
@@ -18,7 +18,8 @@ function hasSeenSplashThisSession(): boolean {
   }
 }
 
-export function DashboardSplashGate({ children }: DashboardSplashGateProps): React.ReactNode {
+/** Full-screen splash on first visit per session; blocks route paint until complete. */
+export function AppSplashGate({ children }: AppSplashGateProps): React.ReactNode {
   const [phase, setPhase] = useState<SplashPhase>("splash");
   const [isExiting, setIsExiting] = useState(false);
 
@@ -55,7 +56,7 @@ export function DashboardSplashGate({ children }: DashboardSplashGateProps): Rea
 
   return (
     <>
-      {children}
+      {phase === "ready" ? children : null}
       {phase !== "ready" ? <FoodRushSplash exiting={isExiting} /> : null}
     </>
   );
