@@ -1,5 +1,9 @@
-/** Bump when replacing files under public/brand/ — pair with a dev-server restart + hard refresh. */
-export const BRAND_ASSET_VERSION = "2";
+/** Bump when replacing files under public/brand/ (same filename → CDN/browser cache). */
+export const BRAND_ASSET_VERSION = "3";
+
+function brandAsset(path: string): string {
+  return `${path}?v=${BRAND_ASSET_VERSION}`;
+}
 
 export const BRAND = {
   name: "FoodRush",
@@ -11,10 +15,10 @@ export const BRAND = {
 } as const;
 
 export const BRAND_ASSETS = {
-  scooterImage: "/brand/foodrush-scooter.png",
-  splashImage: "/brand/foodrush-splash.png",
-  loginHero: "/brand/right.png",
-  logo: "/brand/logo1.png",
+  scooterImage: brandAsset("/brand/foodrush-scooter.png"),
+  splashImage: brandAsset("/brand/foodrush-splash.png"),
+  loginHero: brandAsset("/brand/right.png"),
+  logo: brandAsset("/brand/logo1.png"),
 } as const;
 
 /** Intrinsic file dimensions (public/brand/right.png). */

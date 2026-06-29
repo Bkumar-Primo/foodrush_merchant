@@ -18,22 +18,28 @@ import type { MerchantStatus } from "@/types";
 
 interface HeaderMerchantStatusProps {
   merchantStatus: MerchantStatus;
-  hasOngoing: boolean;
+  hasPendingOrders: boolean;
+  hasFulfillmentOrders: boolean;
   showOfflineConfirm: boolean;
-  showOngoingOfflineWarning: boolean;
+  showPendingOfflineWarning: boolean;
+  showFulfillmentOfflineWarning: boolean;
   onShowOfflineConfirm: (open: boolean) => void;
-  onShowOngoingOfflineWarning: (open: boolean) => void;
+  onShowPendingOfflineWarning: (open: boolean) => void;
+  onShowFulfillmentOfflineWarning: (open: boolean) => void;
   onGoOffline: () => void;
   onGoOnline: () => void;
 }
 
 export function HeaderMerchantStatus({
   merchantStatus,
-  hasOngoing,
+  hasPendingOrders,
+  hasFulfillmentOrders,
   showOfflineConfirm,
-  showOngoingOfflineWarning,
+  showPendingOfflineWarning,
+  showFulfillmentOfflineWarning,
   onShowOfflineConfirm,
-  onShowOngoingOfflineWarning,
+  onShowPendingOfflineWarning,
+  onShowFulfillmentOfflineWarning,
   onGoOffline,
   onGoOnline,
 }: HeaderMerchantStatusProps): React.JSX.Element {
@@ -44,8 +50,10 @@ export function HeaderMerchantStatus({
         onPressedChange={(pressed) => {
           if (pressed) {
             onGoOnline();
-          } else if (hasOngoing) {
-            onShowOngoingOfflineWarning(true);
+          } else if (hasPendingOrders) {
+            onShowPendingOfflineWarning(true);
+          } else if (hasFulfillmentOrders) {
+            onShowFulfillmentOfflineWarning(true);
           } else {
             onShowOfflineConfirm(true);
           }
@@ -87,7 +95,10 @@ export function HeaderMerchantStatus({
         </AlertDialogContent>
       </AlertDialog>
 
-      <AlertDialog open={showOngoingOfflineWarning} onOpenChange={onShowOngoingOfflineWarning}>
+      <AlertDialog
+        open={showPendingOfflineWarning}
+        onOpenChange={onShowPendingOfflineWarning}
+      >
         <AlertDialogContent size="sm">
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2">
@@ -102,20 +113,50 @@ export function HeaderMerchantStatus({
               >
                 <AlertCircle className="h-4 w-4 text-red-650 dark:text-red-500" />
                 <AlertTitle className="font-medium text-xs">
-                  {MERCHANT_DIALOG_COPY.activeOrdersTitle}
+                  {MERCHANT_DIALOG_COPY.pendingOrdersTitle}
                 </AlertTitle>
                 <AlertDescription className="text-[11px] leading-relaxed font-medium">
-                  {MERCHANT_DIALOG_COPY.activeOrdersBlockDescription}
+                  {MERCHANT_DIALOG_COPY.pendingOrdersDescription}
                 </AlertDescription>
               </Alert>
             </div>
           </AlertDialogHeader>
           <AlertDialogFooter className="mt-4">
             <AlertDialogAction
-              onClick={() => onShowOngoingOfflineWarning(false)}
+              onClick={() => onShowPendingOfflineWarning(false)}
               className="bg-primary hover:bg-[#B8433A] text-primary-foreground font-medium text-xs cursor-pointer"
             >
               {MERCHANT_DIALOG_COPY.okay}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog
+        open={showFulfillmentOfflineWarning}
+        onOpenChange={onShowFulfillmentOfflineWarning}
+      >
+        <AlertDialogContent size="sm">
+          <AlertDialogHeader>
+            <AlertDialogTitle>{MERCHANT_DIALOG_COPY.fulfillmentOfflineTitle}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {MERCHANT_DIALOG_COPY.fulfillmentOfflineDescription}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel
+              onClick={() => onShowFulfillmentOfflineWarning(false)}
+            >
+              {MERCHANT_DIALOG_COPY.waitForDelivery}
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                onGoOffline();
+                onShowFulfillmentOfflineWarning(false);
+              }}
+              className="bg-rose-600 hover:bg-rose-500 text-white"
+            >
+              {MERCHANT_DIALOG_COPY.forceGoOfflineAction}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

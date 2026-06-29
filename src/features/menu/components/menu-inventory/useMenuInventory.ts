@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { MenuItem, TempAddonGroup } from "@/types";
+import { getMenuCategoriesFromInventory } from "../../constants";
 import {
   DEFAULT_MENU_FILTERS,
   filterMenuItems,
@@ -35,7 +36,7 @@ export function useMenuInventory({
   const [localFilters, setLocalFilters] = useState<MenuFilters>(DEFAULT_MENU_FILTERS);
   const [showFilterPanel, setShowFilterPanel] = useState(false);
   const filterPanelRef = useRef<HTMLDivElement>(null);
-  const [expandedCategories, setExpandedCategories] = useState<string[]>(["Litti Chokha"]);
+  const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
   const [expandedAddonGroups, setExpandedAddonGroups] = useState<string[]>([]);
 
   const restock = useRestockModal();
@@ -59,12 +60,19 @@ export function useMenuInventory({
     [inventory, searchQuery, filters],
   );
 
-  const categoriesList = useMemo((): string[] => {
-    const list = new Set<string>();
-    for (const item of inventory) {
-      if (item.category) list.add(item.category);
-    }
-    return Array.from(list);
+  const categoriesList = useMemo((): string[] => getMenuCategoriesFromInventory(inventory), [inventory]);
+
+  useEffect(() => {
+    const categories = getMenuCategoriesFromInventory(inventory);
+    if (categories.length === 0) return;
+
+    const firstCategory = categories[0];
+    setExpandedCategories((prev) => {
+      if (prev.length === 0 || !prev.some((category) => categories.includes(category))) {
+        return [firstCategory];
+      }
+      return prev;
+    });
   }, [inventory]);
 
   const stockHandlers = createStockHandlers({
