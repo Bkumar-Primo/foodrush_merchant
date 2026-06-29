@@ -9,14 +9,15 @@ export const AUTH_SPLIT_MAIN_CLASS =
   "flex h-dvh max-h-dvh w-full items-center justify-center overflow-auto px-4 py-6 sm:px-6";
 
 export const AUTH_SPLIT_CONTENT_CLASS =
-  "flex w-max shrink-0 items-center justify-center gap-6 lg:gap-8";
+  "flex w-full shrink-0 items-center justify-center gap-6 lg:h-[680px] lg:w-[1165px] lg:gap-8";
 
 export const AUTH_SPLIT_LEFT_CLASS =
   "flex w-[420px] max-w-[calc(100vw-2rem)] shrink-0 items-center justify-center";
 
 export const AUTH_SPLIT_RIGHT_CLASS =
-  "relative hidden shrink-0 items-center justify-center lg:flex";
+  "relative hidden h-[680px] w-[713px] shrink-0 items-center justify-center lg:flex";
 
-export const AUTH_HERO_WRAPPER_CLASS = "relative shrink-0";
+export const AUTH_HERO_WRAPPER_CLASS = "relative h-full w-full shrink-0";
 
-export const AUTH_HERO_IMAGE_CLASS = "h-full w-full shrink-0 object-contain object-center";
+export const AUTH_HERO_IMAGE_CLASS =
+  "block h-full w-full shrink-0 object-contain object-center";
