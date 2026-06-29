@@ -457,8 +457,3 @@ li,
     visibility: hidden;
   }
 }
-
-/* Splash bootstrap — injected style tag shows splash before React hydrates */
-#foodrush-splash-fallback {
-  display: none;
-}
