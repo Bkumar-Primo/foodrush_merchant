@@ -30,7 +30,7 @@ export function LoginPageView(): React.JSX.Element {
             <div className="flex justify-start">
               <Image
                 src={BRAND_ASSETS.logo}
-                alt="FoodRush"
+                alt="Food Rush"
                 width={150}
                 height={150}
                 className="shrink-0 object-contain"

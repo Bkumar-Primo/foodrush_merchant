@@ -1,7 +1,7 @@
 "use client";
 
-import { X } from "lucide-react";
 import { BrandButton } from "@/components/common/BrandButton";
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { tokens } from "@/lib/utils/tokens";
 import { EditItemPhotoGuidelinesTab } from "./EditItemPhotoGuidelinesTab";
@@ -15,7 +15,7 @@ interface EditItemPhotoModalProps {
 
 function photoTabClasses(active: boolean): string {
   return cn(
-    "px-4 py-1.5 border-b-2 text-xs font-medium transition-all cursor-pointer",
+    "flex-1 px-3 py-2 border-b-2 text-xs font-medium transition-all cursor-pointer text-center",
     active
       ? cn(tokens.colors.brandBorder, tokens.colors.brand)
       : "border-transparent text-zinc-450 hover:text-zinc-700",
@@ -31,36 +31,31 @@ export function EditItemPhotoModal({ form }: EditItemPhotoModalProps): React.JSX
     fileInputRef,
     handleUploadClick,
     handleFileChange,
-    imageSearchQuery,
-    setImageSearchQuery,
-    suggestedSearches,
     imageSearchError,
-    isSearchingImages,
-    searchResults,
-    selectedStockImage,
+    isUploadingImage,
     image,
-    selectStockImage,
+    removeImageBackground,
+    setRemoveImageBackground,
   } = form;
-
-  if (!showPhotoModal) return null;
 
   const setTab = (tab: PhotoTab): void => setPhotoTab(tab);
 
   return (
-    <div className="absolute inset-0 z-50 flex items-center justify-center p-6 bg-black/60 backdrop-blur-xs select-none">
-      <div className="w-full max-w-[460px] bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden flex flex-col p-5 space-y-4 animate-in fade-in zoom-in-95 duration-100">
-        <div className="flex items-center justify-between">
-          <h3 className="text-sm font-medium text-zinc-900 dark:text-white">Map photo</h3>
-          <button
-            type="button"
-            onClick={() => setShowPhotoModal(false)}
-            className="text-zinc-400 hover:text-zinc-650 dark:hover:text-zinc-200 cursor-pointer"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        </div>
+    <Sheet open={showPhotoModal} onOpenChange={setShowPhotoModal}>
+      <SheetContent side="right" showCloseButton={false} className="w-full sm:max-w-lg p-0">
+        <SheetHeader className="px-5 py-4 border-b border-zinc-150 dark:border-zinc-800 shrink-0 flex flex-row items-center justify-between">
+          <SheetTitle className="text-base font-medium text-zinc-900 dark:text-white">Map photo</SheetTitle>
+          <SheetClose asChild>
+            <button
+              type="button"
+              className="inline-flex items-center justify-center rounded-md border border-zinc-200 dark:border-zinc-700 px-2 py-1 text-xs font-medium text-zinc-500 hover:text-zinc-700 dark:text-zinc-300 dark:hover:text-zinc-100 bg-transparent"
+            >
+              Close
+            </button>
+          </SheetClose>
+        </SheetHeader>
 
-        <div className="flex border-b border-zinc-150 dark:border-zinc-800">
+        <div className="flex border-b border-zinc-150 dark:border-zinc-800 px-5 gap-1">
           <button
             type="button"
             onClick={() => setTab("guidelines")}
@@ -85,36 +80,36 @@ export function EditItemPhotoModal({ form }: EditItemPhotoModalProps): React.JSX
           className="hidden"
         />
 
-        {photoTab === "guidelines" ? (
-          <EditItemPhotoGuidelinesTab />
-        ) : (
-          <EditItemPhotoUploadTab
-            imageSearchQuery={imageSearchQuery}
-            setImageSearchQuery={setImageSearchQuery}
-            suggestedSearches={suggestedSearches}
-            imageSearchError={imageSearchError}
-            isSearchingImages={isSearchingImages}
-            searchResults={searchResults}
-            selectedStockImage={selectedStockImage}
-            image={image}
-            selectStockImage={selectStockImage}
-            handleUploadClick={handleUploadClick}
-          />
-        )}
-
-        <BrandButton
-          fullWidth
-          onClick={() => setShowPhotoModal(false)}
-          disabled={!image}
-          className={cn(
-            "py-2.5 rounded-lg font-medium",
-            !image &&
-              "bg-zinc-100 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-555 cursor-not-allowed",
+        <div className="flex-1 overflow-y-auto px-5 py-4">
+          {photoTab === "guidelines" ? (
+            <EditItemPhotoGuidelinesTab />
+          ) : (
+            <EditItemPhotoUploadTab
+              imageSearchError={imageSearchError}
+              isUploadingImage={isUploadingImage}
+              image={image}
+              handleUploadClick={handleUploadClick}
+              removeImageBackground={removeImageBackground}
+              setRemoveImageBackground={setRemoveImageBackground}
+            />
           )}
-        >
-          Map image
-        </BrandButton>
-      </div>
-    </div>
+        </div>
+
+        <div className="px-5 py-4 border-t border-zinc-150 dark:border-zinc-800 shrink-0">
+          <BrandButton
+            fullWidth
+            onClick={() => setShowPhotoModal(false)}
+            disabled={!image || isUploadingImage}
+            className={cn(
+              "py-2.5 rounded-lg font-medium",
+              !image &&
+                "bg-zinc-100 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-555 cursor-not-allowed",
+            )}
+          >
+            Map image
+          </BrandButton>
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 }

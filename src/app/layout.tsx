@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { AppProviders } from "@/components/providers/AppProviders";
+import { BRAND_METADATA } from "@/lib/constants";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -10,8 +11,12 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "FoodRush Merchant",
-  description: "",
+  title: {
+    default: BRAND_METADATA.defaultTitle,
+    template: `%s | ${BRAND_METADATA.applicationName}`,
+  },
+  description: BRAND_METADATA.defaultDescription,
+  applicationName: BRAND_METADATA.applicationName,
 };
 
 export default function RootLayout({

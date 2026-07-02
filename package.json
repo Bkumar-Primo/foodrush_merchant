@@ -11,9 +11,12 @@
     "format": "biome format --write .",
     "check": "biome check --write .",
     "reseed:inventory": "bun run scripts/reseed-inventory.ts",
+    "sync:inventory-images": "bun run scripts/sync-inventory-images.ts",
     "record:demo": "bun run scripts/record-demo.ts"
   },
   "dependencies": {
+    "@imgly/background-removal": "^1.7.0",
+    "@vercel/blob": "^2.5.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^12.15.0",

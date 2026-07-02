@@ -12,16 +12,216 @@
       }
     ],
     "totalAmount": 716,
-    "status": "preparing",
+    "status": "placed",
+    "deliveryCoords": [
+      12.9715987,
+      77.5945627
+    ],
+    "id": "6343231556",
+    "createdAt": 1782400181979,
+    "updatedAt": 1782400181979
+  },
+  {
+    "customerId": "cust_9988",
+    "customerName": "Rahul Roy",
+    "customerPhone": "+91 93333 44444",
+    "items": [
+      {
+        "id": "item_chicken_roll",
+        "name": "Chicken Tikka Roll",
+        "price": 180,
+        "quantity": 2
+      }
+    ],
+    "totalAmount": 360,
+    "status": "placed",
+    "deliveryCoords": [
+      12.9715987,
+      77.5945627
+    ],
+    "id": "6384854445",
+    "createdAt": 1782400181578,
+    "updatedAt": 1782400181578
+  },
+  {
+    "customerId": "cust_5166",
+    "customerName": "Abhishek",
+    "customerPhone": "+91 91111 22222",
+    "items": [
+      {
+        "id": "item_litti_chokha",
+        "name": "Litti Chokha",
+        "price": 147,
+        "quantity": 1
+      },
+      {
+        "id": "item_ghee",
+        "name": "Add On: Ghee",
+        "price": 0,
+        "quantity": 1
+      },
+      {
+        "id": "item_omelette",
+        "name": "Omelette",
+        "price": 59,
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 206,
+    "status": "placed",
+    "deliveryCoords": [
+      12.9715987,
+      77.5945627
+    ],
+    "id": "6373543939",
+    "createdAt": 1782400181204,
+    "updatedAt": 1782400181204
+  },
+  {
+    "customerId": "cust_9988",
+    "customerName": "Rahul Roy",
+    "customerPhone": "+91 93333 44444",
+    "items": [
+      {
+        "id": "item_chicken_roll",
+        "name": "Chicken Tikka Roll",
+        "price": 180,
+        "quantity": 2
+      }
+    ],
+    "totalAmount": 360,
+    "status": "placed",
+    "deliveryCoords": [
+      12.9715987,
+      77.5945627
+    ],
+    "id": "6394533708",
+    "createdAt": 1782400180515,
+    "updatedAt": 1782400180515
+  },
+  {
+    "customerId": "cust_5166",
+    "customerName": "Abhishek",
+    "customerPhone": "+91 91111 22222",
+    "items": [
+      {
+        "id": "item_litti_chokha",
+        "name": "Litti Chokha",
+        "price": 147,
+        "quantity": 1
+      },
+      {
+        "id": "item_ghee",
+        "name": "Add On: Ghee",
+        "price": 0,
+        "quantity": 1
+      },
+      {
+        "id": "item_omelette",
+        "name": "Omelette",
+        "price": 59,
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 206,
+    "status": "placed",
+    "deliveryCoords": [
+      12.9715987,
+      77.5945627
+    ],
+    "id": "6321083568",
+    "createdAt": 1782400179811,
+    "updatedAt": 1782400179811
+  },
+  {
+    "customerId": "cust_5166",
+    "customerName": "Abhishek",
+    "customerPhone": "+91 91111 22222",
+    "items": [
+      {
+        "id": "item_litti_chokha",
+        "name": "Litti Chokha",
+        "price": 147,
+        "quantity": 1
+      },
+      {
+        "id": "item_ghee",
+        "name": "Add On: Ghee",
+        "price": 0,
+        "quantity": 1
+      },
+      {
+        "id": "item_omelette",
+        "name": "Omelette",
+        "price": 59,
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 206,
+    "status": "placed",
+    "deliveryCoords": [
+      12.9715987,
+      77.5945627
+    ],
+    "id": "6382104700",
+    "createdAt": 1782400178327,
+    "updatedAt": 1782400178327
+  },
+  {
+    "id": "6316160599",
+    "customerId": "cust_3355",
+    "customerName": "Loda Singh",
+    "customerPhone": "7894561230",
+    "items": [
+      {
+        "id": "item_litti_1",
+        "name": "Litti Chokha with Ghee",
+        "price": 139,
+        "quantity": 2
+      },
+      {
+        "id": "item_litti_2",
+        "name": "Crispy Tawa Fried Litti",
+        "price": 179,
+        "quantity": 2
+      },
+      {
+        "id": "item_vp_1",
+        "name": "Classic Mumbai Vada Pav",
+        "price": 50,
+        "quantity": 2
+      }
+    ],
+    "totalAmount": 736,
+    "status": "placed",
+    "createdAt": 1782400412155,
+    "updatedAt": 1782400412155,
+    "deliveryCoords": [
+      12.9715987,
+      77.5945627
+    ]
+  },
+  {
+    "customerId": "cust_3127",
+    "customerName": "Khatri Ravi",
+    "customerPhone": "+91 98765 43210",
+    "items": [
+      {
+        "id": "item_litti",
+        "name": "Crispy Tawa Fried Litti",
+        "price": 179,
+        "quantity": 4
+      }
+    ],
+    "totalAmount": 716,
+    "status": "delivered",
     "deliveryCoords": [
       12.9715987,
       77.5945627
     ],
     "id": "6370899084",
     "createdAt": 1782221126310,
-    "updatedAt": 1782221131954,
-    "prepTime": 40,
-    "prepStartedAt": 1782221131927
+    "updatedAt": 1782400389483
   },
   {
     "customerId": "cust_3127",
