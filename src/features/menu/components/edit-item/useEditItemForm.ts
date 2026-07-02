@@ -2,7 +2,9 @@
 
 import type React from "react";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
-import type { ImageSearchResponse, MenuItem, MenuItemAddon, MenuItemVariant } from "@/types";
+import type { MenuItem, MenuItemAddon, MenuItemVariant } from "@/types";
+import { uploadMenuItemImage } from "@/lib/db/menu-image-storage";
+import { removeImageBackground } from "../../utils/remove-image-background";
 import type {
   CustomCharge,
   EditItemModalProps,
@@ -13,17 +15,6 @@ import type {
   VariantTemplate,
 } from "./types";
 import { FALLBACK_MENU_CATEGORY } from "../../constants";
-
-const SUGGESTED_SEARCHES = [
-  "chicken",
-  "biryani",
-  "pizza",
-  "burger",
-  "dessert",
-  "coffee",
-  "salad",
-  "pasta",
-] as const;
 
 function variantTemplateDefaults(type: VariantTemplate): {
   propName: string;
@@ -75,11 +66,10 @@ export function useEditItemForm({
   const [showPhotoModal, setShowPhotoModal] = useState(false);
   const [photoTab, setPhotoTab] = useState<PhotoTab>("upload");
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [imageSearchQuery, setImageSearchQuery] = useState("");
-  const [selectedStockImage, setSelectedStockImage] = useState("");
-  const [searchResults, setSearchResults] = useState<ImageSearchResponse["images"]>([]);
-  const [isSearchingImages, setIsSearchingImages] = useState(false);
   const [imageSearchError, setImageSearchError] = useState<string | null>(null);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [removeImageBackgroundEnabled, setRemoveImageBackgroundEnabled] = useState(true);
+  const draftItemIdRef = useRef(`item_${Math.random().toString(36).slice(2, 11)}`);
   const defaultVariantPropId = useId();
   const [isCreatingVariantInline, setIsCreatingVariantInline] = useState(false);
   const [variantStep, setVariantStep] = useState<VariantStep>(1);
@@ -124,39 +114,6 @@ export function useEditItemForm({
     }
     return result;
   }, [selectedAddonGroupIds, addonGroups]);
-
-  useEffect(() => {
-    const query = imageSearchQuery.trim();
-    if (query.length < 2) return;
-
-    const controller = new AbortController();
-    const timer = setTimeout(async () => {
-      setIsSearchingImages(true);
-      setImageSearchError(null);
-      try {
-        const res = await fetch(`/api/images/search?q=${encodeURIComponent(query)}`, {
-          signal: controller.signal,
-        });
-        const data = (await res.json()) as ImageSearchResponse;
-        if (!res.ok) throw new Error(data.error ?? "Search failed");
-        setSearchResults(data.images ?? []);
-        if ((data.images ?? []).length === 0 && data.error) {
-          setImageSearchError(data.error);
-        }
-      } catch (err) {
-        if ((err as Error).name === "AbortError") return;
-        setSearchResults([]);
-        setImageSearchError("Could not fetch images. Please try again.");
-      } finally {
-        setIsSearchingImages(false);
-      }
-    }, 400);
-
-    return () => {
-      clearTimeout(timer);
-      controller.abort();
-    };
-  }, [imageSearchQuery]);
 
   /* eslint-disable react-hooks/set-state-in-effect -- reset local form state when item/categories change */
   useEffect(() => {
@@ -213,9 +170,8 @@ export function useEditItemForm({
     setIsVariantsExpanded(true);
     setIsAddonsExpanded(false);
     setEditingAddonGroupId(null);
-    setImageSearchQuery("");
-    setSearchResults([]);
     setImageSearchError(null);
+    setRemoveImageBackgroundEnabled(true);
   }, [item, categories, addonGroups, categorySubcategories]);
   /* eslint-enable react-hooks/set-state-in-effect */
 
@@ -223,20 +179,31 @@ export function useEditItemForm({
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      if (event.target?.result) setImage(event.target.result as string);
-    };
-    reader.readAsDataURL(file);
+
+    const itemId = item?.id ?? draftItemIdRef.current;
+    setIsUploadingImage(true);
+    setImageSearchError(null);
+
+    try {
+      const sourceFile = removeImageBackgroundEnabled ? await removeImageBackground(file) : file;
+      const downloadUrl = await uploadMenuItemImage(itemId, sourceFile);
+      setImage(downloadUrl);
+    } catch (error) {
+      console.error("[menu] image upload failed", error);
+      setImageSearchError("Could not upload image. Set up free Vercel Blob storage and try again.");
+    } finally {
+      setIsUploadingImage(false);
+      e.target.value = "";
+    }
   };
 
   const handleSave = (): void => {
-    if (!name.trim()) return;
+    if (!name.trim() || isUploadingImage) return;
     const finalItem: MenuItem = {
-      id: item?.id || `item_${Math.random().toString(36).substr(2, 9)}`,
+      id: item?.id || draftItemIdRef.current,
       name: name.trim(),
       description: description.trim(),
       price: price || 0,
@@ -479,11 +446,6 @@ export function useEditItemForm({
     setShowPhotoModal(true);
   };
 
-  const selectStockImage = (url: string): void => {
-    setSelectedStockImage(url);
-    setImage(url);
-  };
-
   return {
     name,
     setName,
@@ -522,13 +484,10 @@ export function useEditItemForm({
     photoTab,
     setPhotoTab,
     fileInputRef,
-    imageSearchQuery,
-    setImageSearchQuery,
-    selectedStockImage,
-    searchResults,
-    isSearchingImages,
     imageSearchError,
-    suggestedSearches: SUGGESTED_SEARCHES,
+    isUploadingImage,
+    removeImageBackground: removeImageBackgroundEnabled,
+    setRemoveImageBackground: setRemoveImageBackgroundEnabled,
     isCreatingVariantInline,
     setIsCreatingVariantInline,
     variantStep,
@@ -579,7 +538,6 @@ export function useEditItemForm({
     handleUploadClick,
     handleFileChange,
     openPhotoModal,
-    selectStockImage,
   };
 }
 

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { BRAND_METADATA } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Sign in | FoodRush Merchant",
-  description: "Sign in to your merchant account",
+  title: BRAND_METADATA.authTitle,
+  description: BRAND_METADATA.authDescription,
 };
 
 interface AuthLayoutProps {

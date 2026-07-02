@@ -14,6 +14,7 @@ import { getFirestoreDb } from "./firebaseClient";
 import { ensureMerchantDocument } from "./merchant";
 import { stripUndefinedForFirestore } from "./firestoreData";
 import { generateInventorySeedData } from "./inventorySeedData";
+import { ensureMenuItemImage } from "./ensure-menu-item-image";
 import { replaceFirestoreInventory, seedFirestoreInventory } from "./seedFirestore";
 import { isMenuItem, isOrder } from "./validators";
 
@@ -165,7 +166,10 @@ export const updateInventoryStatus = async (
 export const saveInventoryItem = async (item: MenuItem): Promise<void> => {
   const db = requireDb();
   const docRef = doc(db, FIRESTORE_COLLECTIONS.inventory, item.id);
-  await setDoc(docRef, stripUndefinedForFirestore(item), { merge: true });
+
+  const image = await ensureMenuItemImage(item);
+
+  await setDoc(docRef, stripUndefinedForFirestore({ ...item, image }), { merge: true });
 };
 
 export const deleteInventoryItem = async (itemId: string): Promise<void> => {

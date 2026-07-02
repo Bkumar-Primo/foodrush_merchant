@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { DashboardLayoutClientShell } from "@/components/dashboard/DashboardLayoutClientShell";
+import { BRAND_METADATA } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Dashboard | Delivrn Merchant",
-  description: "Manage orders, menu, and store operations",
+  title: BRAND_METADATA.dashboardTitle,
+  description: BRAND_METADATA.dashboardDescription,
 };
 
 interface DashboardLayoutProps {

@@ -1,6 +1,9 @@
 import { Edit2 } from "lucide-react";
+import Image from "next/image";
+import { useMemo, useState } from "react";
 import { FoodTypeIcon } from "@/components/common/FoodTypeIcon";
 import { VerifiedBadge } from "@/components/common/VerifiedBadge";
+import { resolveFoodCategoryImagePath } from "@/lib/constants/food-category-images";
 import { cn } from "@/lib/utils";
 import { tokens } from "@/lib/utils/tokens";
 import type { MenuItem } from "@/types";
@@ -18,7 +21,7 @@ export function MenuEditorItemRow({ item, onEdit }: MenuEditorItemRowProps): Rea
         onClick={() => onEdit(item)}
         className="flex items-center gap-4 min-w-0 flex-1 text-left cursor-pointer hover:bg-zinc-50/50 dark:hover:bg-zinc-950/20 -my-4 -ml-6 py-4 pl-6 pr-2"
       >
-        <ItemThumbnail image={item.image} name={item.name} />
+        <ItemThumbnail image={item.image} name={item.name} category={item.category} />
         <div className="text-left min-w-0">
           <div className="flex items-center gap-1.5 flex-wrap">
             <FoodTypeBadge foodType={item.foodType} />
@@ -53,15 +56,34 @@ export function MenuEditorItemRow({ item, onEdit }: MenuEditorItemRowProps): Rea
 interface ItemThumbnailProps {
   image: string;
   name: string;
+  category: string;
 }
 
-function ItemThumbnail({ image, name }: ItemThumbnailProps): React.JSX.Element {
+function ItemThumbnail({ image, name, category }: ItemThumbnailProps): React.JSX.Element {
+  const categoryImage = resolveFoodCategoryImagePath(category);
+  const [remoteFailed, setRemoteFailed] = useState(false);
+  const showRemote = useMemo(
+    () => image.startsWith("http") && !remoteFailed,
+    [image, remoteFailed],
+  );
+
   return (
-    <div className="w-14 h-14 rounded-lg bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-850 overflow-hidden flex items-center justify-center shrink-0">
-      {image.startsWith("http") ? (
-        <img src={image} alt={name} className="w-full h-full object-cover" />
+    <div className="w-14 h-14 rounded-xl bg-[#F5F2EE] dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-850 overflow-hidden shrink-0">
+      {showRemote ? (
+        <img
+          src={image}
+          alt={name}
+          className="w-full h-full object-cover"
+          onError={() => setRemoteFailed(true)}
+        />
       ) : (
-        <span className="text-2xl">{image}</span>
+        <Image
+          src={categoryImage}
+          alt={name}
+          width={48}
+          height={48}
+          className="w-full h-full object-cover"
+        />
       )}
     </div>
   );

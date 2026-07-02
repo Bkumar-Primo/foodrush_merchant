@@ -1,6 +1,7 @@
 import { type FirebaseApp, getApps, initializeApp } from "firebase/app";
 import { type Auth, getAuth } from "firebase/auth";
 import { type Firestore, getFirestore } from "firebase/firestore";
+import { type FirebaseStorage, getStorage } from "firebase/storage";
 import { DEFAULT_FIRESTORE_DATABASE_ID } from "./collections";
 
 const firebaseConfig = {
@@ -15,6 +16,7 @@ const firebaseConfig = {
 let app: FirebaseApp | null = null;
 let auth: Auth | null = null;
 let db: Firestore | null = null;
+let storage: FirebaseStorage | null = null;
 let initAttempted = false;
 
 function isFirebaseConfigured(): boolean {
@@ -37,12 +39,14 @@ function initializeFirebase(): FirebaseApp | null {
     app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
     db = getFirestore(app, getFirebaseDatabaseId());
     auth = getAuth(app);
+    storage = getStorage(app);
     return app;
   } catch (error) {
     console.error("Firebase initialization failed:", error);
     app = null;
     auth = null;
     db = null;
+    storage = null;
     return null;
   }
 }
@@ -59,6 +63,11 @@ export function getFirestoreDb(): Firestore | null {
 export function getFirebaseAuth(): Auth | null {
   initializeFirebase();
   return auth;
+}
+
+export function getFirebaseStorage(): FirebaseStorage | null {
+  initializeFirebase();
+  return storage;
 }
 
 export function getFirebaseProjectId(): string | null {

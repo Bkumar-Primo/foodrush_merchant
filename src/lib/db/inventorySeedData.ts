@@ -1,24 +1,5 @@
 import type { MenuItem, MenuItemAddon, MenuItemVariant } from "@/types";
 
-const FOOD_IMAGES: Record<string, string[]> = {
-  veg: [
-    "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=60",
-    "https://images.unsplash.com/photo-1601050690597-df056fb4ce78?w=500&auto=format&fit=crop&q=60",
-    "https://images.unsplash.com/photo-1626132647523-66f5bf380027?w=500&auto=format&fit=crop&q=60",
-    "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=500&auto=format&fit=crop&q=60",
-    "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&auto=format&fit=crop&q=60",
-  ],
-  "non-veg": [
-    "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=500&auto=format&fit=crop&q=60",
-    "https://images.unsplash.com/photo-1585937421612-70a008296fbe?w=500&auto=format&fit=crop&q=60",
-    "https://images.unsplash.com/photo-1598515214210-0fabfbd82504?w=500&auto=format&fit=crop&q=60",
-  ],
-  egg: [
-    "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=500&auto=format&fit=crop&q=60",
-    "https://images.unsplash.com/photo-1482049016688-2ed3cbcc17b5?w=500&auto=format&fit=crop&q=60",
-  ],
-};
-
 type SeedCategory = {
   category: string;
   subcategory: string;
@@ -370,11 +351,6 @@ const COMMON_ADDONS: MenuItemAddon[] = [
   { id: "add_papad", name: "Roasted Papad", price: 15, inStock: true },
 ];
 
-function pickImage(foodType: MenuItem["foodType"], index: number): string {
-  const pool = FOOD_IMAGES[foodType];
-  return pool[index % pool.length] ?? FOOD_IMAGES.veg[0];
-}
-
 function buildDescription(name: string, category: string, subcategory: string): string {
   return `Freshly prepared ${name.toLowerCase()} from our ${subcategory} selection. A Punjabi favourite in ${category}, made with homestyle spices and quality ingredients. Best enjoyed hot.`;
 }
@@ -402,7 +378,7 @@ export function generateInventorySeedData(): MenuItem[] {
         category: group.category,
         subcategory: group.subcategory,
         inStock,
-        image: pickImage(group.foodType, index),
+        image: "",
         packagingCharge: 10 + (index % 4) * 5,
         customisable,
       };

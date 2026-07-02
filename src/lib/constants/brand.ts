@@ -6,12 +6,25 @@ function brandAsset(path: string): string {
 }
 
 export const BRAND = {
-  name: "FoodRush",
+  name: "Food Rush",
   nameFood: "Food",
   nameRush: "Rush",
   merchantConsoleTagline: "— merchant console —",
   merchantDashboardTagline: "• Merchant Dashboard •",
   loadingLabel: "Loading...",
+} as const;
+
+export const BRAND_METADATA = {
+  applicationName: "Food Rush",
+  defaultTitle: "Food Rush Merchant",
+  defaultDescription:
+    "Manage orders, menu, and store operations for your Food Rush restaurant.",
+  authTitle: "Sign in",
+  authDescription: "Sign in to your Food Rush merchant account",
+  dashboardTitle: "Dashboard",
+  dashboardDescription: "Manage orders, menu, and store operations",
+  simulateTitle: "Order Simulator",
+  simulateDescription: "Simulate orders in real time to test merchant operations.",
 } as const;
 
 export const BRAND_ASSETS = {
